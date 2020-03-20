@@ -10,10 +10,10 @@ python3 -m venv env
 source env/bin/activate
 ```
 
-Once the environment is activated, install Django:
+Once the environment is activated, install requirements:
 
 ```
-python -m pip install Django
+pip -r requirements.txt
 ```
 
 CD into the correct directory:
