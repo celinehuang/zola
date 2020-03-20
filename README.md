@@ -13,7 +13,7 @@ source env/bin/activate
 Once the environment is activated, install requirements:
 
 ```
-pip -r requirements.txt
+pip install -r requirements.txt
 ```
 
 CD into the correct directory:
