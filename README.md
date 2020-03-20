@@ -10,18 +10,21 @@ python3 -m venv env
 source env/bin/activate
 ```
 
-Once the environment is activated, install dependencies:
+Once the environment is activated, install Django:
 
 ```
-pip install -r /path/to/requirements.txt
+python -m pip install Django
 ```
 
-You will also need to download the [RetinaNet model file](https://github.com/OlafenwaMoses/ImageAI/releases/download/1.0/resnet50_coco_best_v2.0.1.h5) that will be used for object detection. Once you have it downloaded, put the file in the root of the `backend` folder.
-
-If any packages are missing when you run `app.py`, install them with `pip install`. To run the backend from the `backend` folder:
+CD into the correct directory:
 
 ```
-python app.py
+cd backend/mysite
+```
+
+To run the Django backend:
+```
+python manage.py runserver
 ```
 
 ## Frontend Set Up
