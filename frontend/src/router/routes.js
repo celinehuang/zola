@@ -4,6 +4,13 @@ const routes = [
     path: "/home",
     component: () => import("layouts/MainLayout.vue")
   },
+  // {
+  //   path: "/browse-listings",
+  //   component: () => import("layouts/MainLayout.vue"),
+  //   children: [
+  //     { path: "", component: () => import("pages/BrowseListings.vue") }
+  //   ]
+  // },
   {
     path: "/login",
     component: () => import("pages/LoginPage.vue"),

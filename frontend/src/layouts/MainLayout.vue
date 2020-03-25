@@ -12,7 +12,7 @@
         />
 
         <q-toolbar-title>
-          <q-btn flat class="home-btn" to="/browse-listings">ZOLA</q-btn>
+          <q-btn flat class="home-btn" to="/home">ZOLA</q-btn>
         </q-toolbar-title>
 
         <div class="q-pa-md">
