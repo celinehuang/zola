@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated class="bg-cyan-8">
+    <q-header elevated>
       <q-toolbar style="background-color: #445c3c">
         <q-btn
           flat
@@ -11,55 +11,50 @@
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
 
-        <q-toolbar-title style="font-size: 25px; font-weight: bold;">Marketplace</q-toolbar-title>
+        <q-toolbar-title>
+          <q-btn flat class="home-btn" to="/browse-listings">ZOLA</q-btn>
+        </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div class="q-pa-md">
+          <q-btn flat style="letter-spacing:0.15rem">LOGOUT</q-btn>
+          <q-btn flat icon="shopping_cart" />
+        </div>
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-1">
-      <!-- <q-list> -->
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-2">
       <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; ">
         <q-list padding>
           <q-separator />
-          <q-item clickable v-ripple>
+          <q-item clickable v-ripple to="/edit-profile">
             <q-item-section avatar>
-              <q-icon name="inbox" />
+              <q-icon name="edit" />
             </q-item-section>
-
             <q-item-section>Edit Profile</q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple>
+          <q-item clickable v-ripple to="/order-history">
             <q-item-section avatar>
-              <q-icon name="star" />
+              <q-icon name="history" />
             </q-item-section>
-
             <q-item-section>Order History</q-item-section>
           </q-item>
-          <q-item clickable v-ripple>
-            <q-item-section avatar>
-              <q-icon name="send" />
-            </q-item-section>
 
+          <q-item clickable v-ripple to="/my-listings">
+            <q-item-section avatar>
+              <q-icon name="list" />
+            </q-item-section>
             <q-item-section>My Listings</q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple>
+          <q-item clickable v-ripple to="/messages">
             <q-item-section avatar>
               <q-icon name="drafts" />
             </q-item-section>
-
             <q-item-section>Messages</q-item-section>
           </q-item>
         </q-list>
       </q-scroll-area>
-
-      <!-- <q-img
-          class="absolute-top"
-          src="https://cdn.quasar.dev/img/material.png"
-          style="height: 150px"
-      >-->
       <div class="absolute-top" style="background-color:#fcf9f2; height: 158px; padding: 25px;">
         <q-avatar size="56px" class="q-mb-sm">
           <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
@@ -67,8 +62,6 @@
         <div class="text-weight-bold">Razvan Stoenescu</div>
         <div>@rstoenescu</div>
       </div>
-      <!-- </q-img> -->
-      <!-- </q-list> -->
     </q-drawer>
 
     <q-page-container>
@@ -89,6 +82,25 @@ export default {
     return {
       leftDrawerOpen: false
     };
+  },
+  methods: {
+    //   showNotif() {
+    //     this.$q.notify({
+    //       message: "Added to basket",
+    //       icon: "add"
+    //     });
+    //   }
   }
 };
 </script>
+<style scoped>
+.q-item.q-router-link--active,
+.q-item--active {
+  color: #445c3c;
+}
+.home-btn {
+  font-size: 25px;
+  font-weight: bold;
+  letter-spacing: 0.5rem;
+}
+</style>

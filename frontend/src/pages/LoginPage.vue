@@ -1,8 +1,8 @@
 <template>
   <q-layout>
     <q-page-container>
-      <q-banner class="login_banner">
-        <div style="font-size: 25px; font-weight: bold;">Marketplace</div>
+      <q-banner class="login_banner q-pa-md">
+        <div style="font-size: 25px; font-weight: bold; letter-spacing:0.5rem">ZOLA</div>
       </q-banner>
 
       <q-page class="flex column flex-center login_page">
@@ -206,11 +206,7 @@ export default {
 
 <style lang="scss" scoped>
 .login_banner {
-  //   background-color: $secondary;
   background-color: #445c3c;
   color: white;
-}
-.login_page {
-  //   background-color: #fae8c8;
 }
 </style>
