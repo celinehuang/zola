@@ -1,9 +1,9 @@
 const routes = [
+  { path: "", redirect: "home" },
   {
-    path: "/browse-listings",
+    path: "/home",
     component: () => import("layouts/MainLayout.vue")
   },
-  { path: "", redirect: "home" },
   {
     path: "/login",
     component: () => import("pages/LoginPage.vue"),
