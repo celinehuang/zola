@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import UserManager
 # Create your models here.
 class User(models.Model):
     email = models.EmailField(max_length=254, primary_key=True)
@@ -8,6 +8,8 @@ class User(models.Model):
         max_length=200, blank=True
     )  # users can leave this blank
     password = models.CharField(max_length=100)
+
+    objects = UserManager()
 
 
 class Item(models.Model):
