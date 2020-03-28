@@ -1,11 +1,12 @@
 from django.urls import path
 from django.conf.urls import include
 from rest_framework import routers
-from .views import ProfileViewSet, ItemViewSet
+from .views import ProfileViewSet, ItemViewSet, PaymentViewSet
 
 router = routers.DefaultRouter()
 #router.register('profiles', ProfileViewSet)
 router.register('items', ItemViewSet)
+router.register('payments',PaymentViewSet)
 
 from . import views
 

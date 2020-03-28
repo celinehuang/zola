@@ -48,11 +48,18 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 ]
 REST_AUTH_REGISTER_SERIALIZERS = {
-    'REGISTER_SERIALIZER': 'vueapi.serializers.RegisterProfileSerializer',
+    'REGISTER_SERIALIZER': 'vueapi.serializers.RegisterProfileSerializer'
 }
+REST_AUTH_SERIALIZERS = {'LOGIN_SERIALIZER': 'vueapi.serializers.LoginSerializer'}
 ACCOUNT_ADAPTER = 'vueapi.adapter.ProfileAdapter'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SITE_ID = 1
+
+#ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+#ACCOUNT_USER_EMAIL_FIELD = 'email'
+#ACCOUNT_LOGOUT_ON_GET = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

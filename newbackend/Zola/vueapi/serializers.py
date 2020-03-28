@@ -2,13 +2,15 @@ from rest_framework import serializers
 from .models import Profile, Item, Payment
 from rest_framework.authtoken.models import Token
 from rest_auth.registration.serializers import RegisterSerializer
+from rest_auth.serializers import LoginSerializer as RestAuthLoginSerializer
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ('email','name','shipping_addr','username')
+        fields = ('username','email','name','shipping_addr')
         
-
+class LoginSerializer(RestAuthLoginSerializer):
+    email = None
     # def create(self, validated_data):
     #     user = Profile.objects.create_user_profile(**validated_data)
     #     Token.objects.create(user=user)

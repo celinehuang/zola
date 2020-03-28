@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework import viewsets, status, generics
 #from rest_framework.permissions import IsAuthenticated
-from .serializers import ProfileSerializer, ItemSerializer
-from .models import Profile, Item
+from .serializers import ProfileSerializer, ItemSerializer, PaymentSerializer
+from .models import Profile, Item, Payment
 from rest_framework.response import Response
 from rest_framework.decorators import permission_classes, api_view, action, authentication_classes
 #from rest_framework.authentication import TokenAuthentication
@@ -42,3 +42,7 @@ class ItemViewSet(viewsets.ModelViewSet):
             console.log('an error occured.')
             response={'message':'error occured'}
             return Response(response, status=status.HTTP_400_BAD_REQUEST)
+
+class PaymentViewSet(viewsets.ModelViewSet):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer

@@ -25,7 +25,7 @@ class Profile(AbstractUser):
     shipping_addr = models.CharField(max_length=250)
     
     def __str__(self):
-        return self.email
+        return self.username
 
 class Item(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -44,7 +44,7 @@ class Item(models.Model):
 
 class Payment(models.Model):
     pId = models.IntegerField(primary_key=True)
-    email = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    username = models.ForeignKey(Profile, on_delete=models.CASCADE)
     iId = models.ForeignKey(Item, on_delete=models.CASCADE)
     shipping_addr = models.CharField(max_length=200)
     total_amt = models.DecimalField(max_digits=5, decimal_places=2)
