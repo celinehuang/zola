@@ -1,9 +1,9 @@
 <template>
   <q-layout>
     <q-page-container>
-      <q-banner class="login_banner q-pa-md">
-        <div style="font-size: 25px; font-weight: bold; letter-spacing:0.5rem">ZOLA</div>
-      </q-banner>
+      <q-toolbar style="background-color: #445c3c">
+        <q-toolbar-title class="login-banner q-pa-md">ZOLA</q-toolbar-title>
+      </q-toolbar>
 
       <q-page class="flex column flex-center login_page">
         <div class="q-gutter-y-md" style="min-width: 400px">
@@ -28,13 +28,13 @@
                 <q-form @submit="onLogIn" class="q-gutter-md">
                   <q-input
                     filled
-                    v-model="email"
-                    label="Email"
-                    hint="Enter your email"
+                    v-model="username"
+                    label="Username"
+                    hint="Enter your username"
                     lazy-rules
                     :rules="[
                       val =>
-                        (val && val.length > 0) || 'Please enter your email'
+                        (val && val.length > 0) || 'Please enter your username'
                     ]"
                   />
 
@@ -53,7 +53,11 @@
                   />
 
                   <div>
-                    <q-btn label="Log In" type="submit" style="background:#cad5db;" />
+                    <q-btn
+                      label="Log In"
+                      type="submit"
+                      style="background:#cad5db;"
+                    />
                   </div>
                 </q-form>
               </q-tab-panel>
@@ -62,12 +66,13 @@
                 <q-form @submit="onSignUp" class="q-gutter-md">
                   <q-input
                     filled
-                    v-model="name"
-                    label="Name"
-                    hint="Enter your name"
+                    v-model="username"
+                    label="Username"
+                    hint="Enter your username"
                     lazy-rules
                     :rules="[
-                      val => (val && val.length > 0) || 'Please enter your name'
+                      val =>
+                        (val && val.length > 0) || 'Please enter your username'
                     ]"
                   />
                   <q-input
@@ -83,13 +88,23 @@
                   />
                   <q-input
                     filled
-                    v-model="location"
-                    label="Location"
-                    hint="Enter your location"
+                    v-model="name"
+                    label="Name"
+                    hint="Enter your name"
+                    lazy-rules
+                    :rules="[
+                      val => (val && val.length > 0) || 'Please enter your name'
+                    ]"
+                  />
+                  <q-input
+                    filled
+                    v-model="address"
+                    label="Address"
+                    hint="Enter your address"
                     lazy-rules
                     :rules="[
                       val =>
-                        (val && val.length > 0) || 'Please enter your location'
+                        (val && val.length > 0) || 'Please enter your address'
                     ]"
                   />
                   <q-input
@@ -122,7 +137,11 @@
                   />
 
                   <div>
-                    <q-btn label="Sign Up" type="submit" style="background:#cad5db;" />
+                    <q-btn
+                      label="Sign Up"
+                      type="submit"
+                      style="background:#cad5db;"
+                    />
                   </div>
                 </q-form>
               </q-tab-panel>
@@ -139,20 +158,21 @@ export default {
   name: "LoginPage",
   data() {
     return {
-      name: null,
+      username: null,
       email: null,
+      name: null,
+      address: null,
       password: null,
       confirm_password: null,
-      location: null,
       tab: "login"
     };
   },
   methods: {
     onLogIn() {
-      let email = this.email;
+      let username = this.username;
       let password = this.password;
       this.$store
-        .dispatch("login", { email, password })
+        .dispatch("login", { username, password })
         .then(() => {
           this.$q.notify({
             color: "green-4",
@@ -174,12 +194,13 @@ export default {
         });
     },
     onSignUp() {
-      let name = this.name;
+      let username = this.username;
       let email = this.email;
+      let name = this.name;
+      let address = this.address;
       let password = this.password;
-      let location = this.location;
       this.$store
-        .dispatch("register", { name, email, password, location })
+        .dispatch("register", { username, email, name, address, password })
         .then(() => {
           this.$q.notify({
             color: "green-4",
@@ -205,8 +226,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.login_banner {
+.login-banner {
   background-color: #445c3c;
   color: white;
+  font-size: 25px;
+  font-weight: bold;
+  letter-spacing: 0.5rem;
+  padding-left: 2%;
 }
 </style>
