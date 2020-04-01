@@ -24,7 +24,6 @@ class ItemViewSet(viewsets.ModelViewSet):
 
     @action(methods=['POST'], detail=True)
     def change_description(self, request, pk=None):
-        console.log('herexxxxxxxxx')
         if 'description' in request.data:
             item = Item.objects.get(id=pk)
             newdesc = request.data['description']
