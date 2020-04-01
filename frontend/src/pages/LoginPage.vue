@@ -189,7 +189,7 @@ export default {
             position: "top",
             textColor: "white",
             icon: "error",
-            message: "Wrong email or password"
+            message: "Wrong username or password"
           });
         });
     },
@@ -220,7 +220,6 @@ export default {
           this.$router.push({ path: "/home" });
         })
         .catch(_err => {
-          console.log(_err);
           this.$q.notify({
             color: "red-4",
             position: "top",
