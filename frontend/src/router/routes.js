@@ -1,8 +1,15 @@
 const routes = [
   { path: "", redirect: "home" },
   {
+    path: "/login",
+    component: () => import("pages/LoginPage.vue"),
+    children: []
+  },
+  {
     path: "/home",
-    component: () => import("layouts/MainLayout.vue")
+    meta: { requiresAuth: true },
+    component: () => import("layouts/MainLayout.vue"),
+    children: []
   },
   // {
   //   path: "/browse-listings",
@@ -12,32 +19,27 @@ const routes = [
   //   ]
   // },
   {
-    path: "/login",
-    component: () => import("pages/LoginPage.vue"),
-    children: []
-  },
-  {
     path: "/edit-profile",
     component: () => import("layouts/MainLayout.vue"),
-    // meta: { requiresAuth: true },
+    meta: { requiresAuth: true },
     children: [{ path: "", component: () => import("pages/EditProfile.vue") }]
   },
   {
     path: "/order-history",
     component: () => import("layouts/MainLayout.vue"),
-    // meta: { requiresAuth: true },
+    meta: { requiresAuth: true },
     children: [{ path: "", component: () => import("pages/OrderHistory.vue") }]
   },
   {
     path: "/my-listings",
     component: () => import("layouts/MainLayout.vue"),
-    // meta: { requiresAuth: true },
+    meta: { requiresAuth: true },
     children: [{ path: "", component: () => import("pages/MyListings.vue") }]
   },
   {
     path: "/messages",
     component: () => import("layouts/MainLayout.vue"),
-    // meta: { requiresAuth: true },
+    meta: { requiresAuth: true },
     children: [{ path: "", component: () => import("pages/Messages.vue") }]
   }
 ];

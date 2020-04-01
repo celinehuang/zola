@@ -2,8 +2,6 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 
-// import example from './module-example'
-
 Vue.use(Vuex);
 
 var config = require("../config");
@@ -70,11 +68,23 @@ const Store = new Vuex.Store({
           password: user.password
         })
           .then(resp => {
-            console.log(resp);
             const token = resp.data.key;
-            const user = resp.data.user;
-            localStorage.setItem("token", token);
+            console.log("hello" + token);
+            // get user from rest-auth/user by token
+            // AXIOS.get("/api/rest-auth/user", {
+            //   token: token
+            // })
+            //   .then(resp => {
+            //     const user = resp.data.user;
+            //     localStorage.setItem("user", user);
+            //   })
+            //   .catch(err => {
+            //     commit("auth_error");
+            //     localStorage.removeItem("token");
+            //     reject(err);
+            //   });
 
+            localStorage.setItem("token", token);
             axios.defaults.headers.common["Authorization"] = token;
             commit("auth_success", { token, user });
             resolve(resp);
