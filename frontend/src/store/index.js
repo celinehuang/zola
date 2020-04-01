@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
+import Axios from "axios";
 
 // import example from './module-example'
 
@@ -66,7 +67,7 @@ const Store = new Vuex.Store({
     login({ commit }, user) {
       return new Promise((resolve, reject) => {
         commit("auth_request");
-        AXIOS.post("/api/rest-auth/login/", {
+        AXIOS.post("http://127.0.0.1:8000/api/rest-auth/login/", {
           username: user.username,
           password: user.password
         })
@@ -89,12 +90,22 @@ const Store = new Vuex.Store({
     register({ commit }, user) {
       return new Promise((resolve, reject) => {
         commit("auth_request");
-        AXIOS.post("/api/rest-auth/registration/", {
+        var request = {
           username: user.username,
           email: user.email,
           name: user.name,
-          address: user.address,
-          password: user.password
+          shipping_addr: user.address,
+          password1: user.password,
+          password2: user.confirm_password
+        };
+        console.log(request);
+        Axios.post("http://127.0.0.1:8000/api/rest-auth/registration/", {
+          username: user.username,
+          email: user.email,
+          name: user.name,
+          shipping_addr: user.address,
+          password1: user.password,
+          password2: user.confirm_password
         })
           .then(resp => {
             const token = resp.data.token;

@@ -51,7 +51,11 @@ INSTALLED_APPS = [
 REST_AUTH_REGISTER_SERIALIZERS = {
     "REGISTER_SERIALIZER": "vueapi.serializers.RegisterProfileSerializer"
 }
+
 REST_AUTH_SERIALIZERS = {"LOGIN_SERIALIZER": "vueapi.serializers.LoginSerializer"}
+# REST_FRAMEWORK = {
+#     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),
+# }
 ACCOUNT_ADAPTER = "vueapi.adapter.ProfileAdapter"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 SITE_ID = 1

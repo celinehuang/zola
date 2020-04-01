@@ -199,8 +199,16 @@ export default {
       let name = this.name;
       let address = this.address;
       let password = this.password;
+      let confirm_password = this.confirm_password;
       this.$store
-        .dispatch("register", { username, email, name, address, password })
+        .dispatch("register", {
+          username,
+          email,
+          name,
+          address,
+          password,
+          confirm_password
+        })
         .then(() => {
           this.$q.notify({
             color: "green-4",
@@ -212,6 +220,7 @@ export default {
           this.$router.push({ path: "/home" });
         })
         .catch(_err => {
+          console.log(_err);
           this.$q.notify({
             color: "red-4",
             position: "top",
