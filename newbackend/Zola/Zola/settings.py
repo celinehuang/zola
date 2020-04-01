@@ -56,6 +56,11 @@ REST_AUTH_SERIALIZERS = {"LOGIN_SERIALIZER": "vueapi.serializers.LoginSerializer
 # REST_FRAMEWORK = {
 #     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),
 # }
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',  # <-- And here
+    ],
+}
 ACCOUNT_ADAPTER = "vueapi.adapter.ProfileAdapter"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 SITE_ID = 1
