@@ -16,13 +16,20 @@
         </q-toolbar-title>
 
         <div class="q-pa-md">
-          <q-btn flat style="letter-spacing:0.15rem">LOGOUT</q-btn>
+          <q-btn flat @click="logout" style="letter-spacing:0.15rem"
+            >LOGOUT</q-btn
+          >
           <q-btn flat icon="shopping_cart" />
         </div>
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-2">
+    <q-drawer
+      v-model="leftDrawerOpen"
+      show-if-above
+      bordered
+      content-class="bg-grey-2"
+    >
       <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; ">
         <q-list padding>
           <q-separator />
@@ -55,11 +62,16 @@
           </q-item>
         </q-list>
       </q-scroll-area>
-      <div class="absolute-top" style="background-color:#fcf9f2; height: 158px; padding: 25px;">
+      <div
+        class="absolute-top"
+        style="background-color:#fcf9f2; height: 158px; padding: 25px;"
+      >
         <q-avatar size="56px" class="q-mb-sm">
           <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
         </q-avatar>
-        <div class="text-weight-bold">Razvan Stoenescu</div>
+        <div class="text-weight-bold">
+          {{ name }}
+        </div>
         <div>@rstoenescu</div>
       </div>
     </q-drawer>
@@ -80,7 +92,9 @@ export default {
 
   data() {
     return {
-      leftDrawerOpen: false
+      leftDrawerOpen: false,
+      username: this.$store.state.currentUser.username,
+      name: this.$store.state.currentUser.name
     };
   },
   methods: {
@@ -90,6 +104,9 @@ export default {
     //       icon: "add"
     //     });
     //   }
+    logout: function() {
+      this.$store.dispatch("logout").then(this.$router.push({ path: "login" }));
+    }
   }
 };
 </script>

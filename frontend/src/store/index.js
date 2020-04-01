@@ -70,7 +70,8 @@ const Store = new Vuex.Store({
           password: user.password
         })
           .then(resp => {
-            const token = resp.data.token;
+            console.log(resp);
+            const token = resp.data.key;
             const user = resp.data.user;
             localStorage.setItem("token", token);
 
