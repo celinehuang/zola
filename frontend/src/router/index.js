@@ -55,7 +55,6 @@ export default function(/* { store, ssrContext } */) {
         AXIOS.post("/api/rest-auth/user/", { token: token })
           .then(resp => {
             Store.commit("set_user", resp.data);
-            console.log("helloooo" + resp.data);
             next();
           })
           .catch(() => {
