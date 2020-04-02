@@ -71,23 +71,23 @@ const Store = new Vuex.Store({
             const token = resp.data.key;
             console.log("hello" + token);
             // get user from rest-auth/user by token
-            // AXIOS.get("/api/rest-auth/user", {
-            //   token: token
-            // })
-            //   .then(resp => {
-            //     const user = resp.data.user;
-            //     localStorage.setItem("user", user);
-            //   })
-            //   .catch(err => {
-            //     commit("auth_error");
-            //     localStorage.removeItem("token");
-            //     reject(err);
-            //   });
-
-            localStorage.setItem("token", token);
-            axios.defaults.headers.common["Authorization"] = token;
-            commit("auth_success", { token, user });
-            resolve(resp);
+            AXIOS.get("/api/rest-auth/user", {
+              headers: {
+                Authorization: `Token ${token}`
+              }
+            })
+              .then(resp => {
+                const user = resp.data;
+                localStorage.setItem("token", token);
+                axios.defaults.headers.common["Authorization"] = token;
+                commit("auth_success", { token, user });
+                resolve(resp);
+              })
+              .catch(err => {
+                commit("auth_error");
+                localStorage.removeItem("token");
+                reject(err);
+              });
           })
           .catch(err => {
             commit("auth_error");

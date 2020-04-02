@@ -59,8 +59,8 @@
         <q-avatar size="60px" class="q-mb-sm profile-picture">
           <img src="~assets/blank-profile-picture.jpg" />
         </q-avatar>
-        <div class="text-weight-bold">name</div>
-        <div>@rstoenescu</div>
+        <div class="text-weight-bold">{{ name }}</div>
+        <div>@{{ username }}</div>
       </div>
     </q-drawer>
 
@@ -80,9 +80,9 @@ export default {
 
   data() {
     return {
-      leftDrawerOpen: false
-      // username: this.$store.state.currentUser.username,
-      // name: this.$store.state.currentUser.name
+      leftDrawerOpen: false,
+      username: this.$store.state.currentUser.username,
+      name: this.$store.state.currentUser.name
     };
   },
   methods: {
