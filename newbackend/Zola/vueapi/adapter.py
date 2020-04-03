@@ -8,5 +8,6 @@ class ProfileAdapter(DefaultAccountAdapter):
         data = form.cleaned_data
         user.name = data.get('name')
         user.shipping_addr = data.get('shipping_addr')
+        user.profile_pic = data.get('profile_pic')
         user.save()
         return user

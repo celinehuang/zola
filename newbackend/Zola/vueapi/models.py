@@ -8,7 +8,9 @@ from django.contrib.auth.models import AbstractUser
 class Profile(AbstractUser):
     name = models.CharField(max_length=250)
     shipping_addr = models.CharField(max_length=250)
-    
+    profile_pic = models.ImageField(
+        height_field=None, width_field=None, max_length=100, upload_to='profilepics', null = True
+    )
     def __str__(self):
         return self.username
 

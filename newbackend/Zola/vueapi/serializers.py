@@ -9,7 +9,7 @@ from rest_auth.serializers import UserDetailsSerializer
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ('username','email','name','shipping_addr')
+        fields = ('username','email','name','shipping_addr', 'profile_pic')
         
 class LoginSerializer(RestAuthLoginSerializer):
     email = None
@@ -17,10 +17,12 @@ class LoginSerializer(RestAuthLoginSerializer):
 class RegisterProfileSerializer(RegisterSerializer):
     name = serializers.CharField(max_length=250)
     shipping_addr = serializers.CharField(max_length=250)
+    profile_pic = serializers.ImageField(required=False)
     def get_cleaned_data(self):
             data_dict = super().get_cleaned_data()
             data_dict['name'] = self.validated_data.get('name', '')
             data_dict['shipping_addr'] = self.validated_data.get('shipping_addr','')
+            data_dict['profile_pic'] = self.validated_data.get('profile_pic','')
             return data_dict
 
 class ItemSerializer(serializers.ModelSerializer):
@@ -36,4 +38,4 @@ class PaymentSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ('username', 'email','name','shipping_addr')
+        fields = ('username', 'email','name','shipping_addr', 'profile_pic')
