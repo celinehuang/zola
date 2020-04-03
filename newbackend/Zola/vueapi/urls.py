@@ -14,6 +14,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('users/', ProfileViewSet.as_view()),
     path('rest-auth/', include('rest_auth.urls')),
-    #path('items/', ItemViewSet.as_view()),
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
 ]

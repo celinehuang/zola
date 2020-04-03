@@ -3,6 +3,8 @@ from .models import Profile, Item, Payment
 from rest_framework.authtoken.models import Token
 from rest_auth.registration.serializers import RegisterSerializer
 from rest_auth.serializers import LoginSerializer as RestAuthLoginSerializer
+from rest_auth.serializers import UserDetailsSerializer
+
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,10 +13,6 @@ class ProfileSerializer(serializers.ModelSerializer):
         
 class LoginSerializer(RestAuthLoginSerializer):
     email = None
-    # def create(self, validated_data):
-    #     user = Profile.objects.create_user_profile(**validated_data)
-    #     Token.objects.create(user=user)
-    #     return user
 
 class RegisterProfileSerializer(RegisterSerializer):
     name = serializers.CharField(max_length=250)
@@ -34,3 +32,8 @@ class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
         fields = '__all__'
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ('username', 'email','name','shipping_addr')
