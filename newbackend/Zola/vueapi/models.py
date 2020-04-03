@@ -33,7 +33,7 @@ class Item(models.Model):
     mediatype = models.CharField(max_length=50)
     genre = models.CharField(max_length=50)
     photo = models.ImageField(
-        upload_to=None, height_field=None, width_field=None, max_length=100
+        height_field=None, width_field=None, max_length=100
     )
     description = models.CharField(max_length=500)
     inventory_count = models.PositiveSmallIntegerField()
