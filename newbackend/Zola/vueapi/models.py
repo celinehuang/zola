@@ -8,7 +8,9 @@ from django.contrib.auth.models import AbstractUser
 class Profile(AbstractUser):
     name = models.CharField(max_length=250)
     shipping_addr = models.CharField(max_length=250)
-    
+    profile_pic = models.ImageField(
+        height_field=None, width_field=None, max_length=100, upload_to='profilepics', null = True
+    )
     def __str__(self):
         return self.username
 
@@ -18,7 +20,7 @@ class Item(models.Model):
     mediatype = models.CharField(max_length=50)
     genre = models.CharField(max_length=50)
     photo = models.ImageField(
-        upload_to=None, height_field=None, width_field=None, max_length=100
+        height_field=None, width_field=None, max_length=100, upload_to='albumart'
     )
     description = models.CharField(max_length=500)
     inventory_count = models.PositiveSmallIntegerField()
