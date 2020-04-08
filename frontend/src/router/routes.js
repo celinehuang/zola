@@ -11,13 +11,11 @@ const routes = [
     component: () => import("layouts/MainLayout.vue"),
     children: []
   },
-  // {
-  //   path: "/browse-listings",
-  //   component: () => import("layouts/MainLayout.vue"),
-  //   children: [
-  //     { path: "", component: () => import("pages/BrowseListings.vue") }
-  //   ]
-  // },
+  {
+    path: "/browse-listings",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [{ path: "", component: () => import("pages/Home.vue") }]
+  },
   {
     path: "/edit-profile",
     component: () => import("layouts/MainLayout.vue"),
