@@ -62,12 +62,22 @@
           </q-item>
         </q-list>
       </q-scroll-area>
+
       <div
         class="absolute-top"
         style="background-color:#fcf9f2; height: 158px; padding: 25px;"
       >
-        <q-avatar size="70px" class="q-mb-sm profile-picture">
-          <img src="~assets/avatar-person.svg" />
+        <!-- Show generic profile picture if user has no profile picture -->
+        <q-avatar
+          v-if="profile_pic === null"
+          size="70px"
+          class="q-mb-sm profile-picture"
+        >
+          <img src="../assets/avatar-person.svg" />
+        </q-avatar>
+        <!-- Show user's profile picture otherwise -->
+        <q-avatar v-else size="70px" class="q-mb-sm profile-picture">
+          <img v-bind:src="profile_pic" />
         </q-avatar>
         <div class="text-weight-bold">{{ name }}</div>
         <div>@{{ username }}</div>
@@ -90,7 +100,8 @@ export default {
     return {
       leftDrawerOpen: false,
       username: this.$store.state.currentUser.username,
-      name: this.$store.state.currentUser.name
+      name: this.$store.state.currentUser.name,
+      profile_pic: this.$store.state.currentUser.profile_pic
     };
   },
   methods: {
@@ -116,5 +127,8 @@ export default {
   font-size: 25px;
   font-weight: bold;
   letter-spacing: 0.5rem;
+}
+#default-profile-picture {
+  background-image: url("../assets/avatar-person.svg");
 }
 </style>
