@@ -9,7 +9,7 @@ const routes = [
     path: "/home",
     component: () => import("layouts/MainLayout.vue"),
     meta: { requiresAuth: true },
-    children: [{ path: "", component: () => import("pages/home.vue") }]
+    children: [{ path: "", component: () => import("pages/Home.vue") }]
   },
   {
     path: "/edit-profile",
@@ -34,6 +34,14 @@ const routes = [
     component: () => import("layouts/MainLayout.vue"),
     meta: { requiresAuth: true },
     children: [{ path: "", component: () => import("pages/Messages.vue") }]
+  },
+  {
+    path: "/change-password",
+    component: () => import("layouts/MainLayout.vue"),
+    meta: { requiresAuth: true },
+    children: [
+      { path: "", component: () => import("pages/ChangePassword.vue") }
+    ]
   }
 ];
 

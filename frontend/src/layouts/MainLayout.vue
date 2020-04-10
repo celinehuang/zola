@@ -60,6 +60,13 @@
             </q-item-section>
             <q-item-section>Messages</q-item-section>
           </q-item>
+
+          <q-item clickable v-ripple to="/change-password">
+            <q-item-section avatar>
+              <q-icon name="lock_open" />
+            </q-item-section>
+            <q-item-section>Change Password</q-item-section>
+          </q-item>
         </q-list>
       </q-scroll-area>
 
