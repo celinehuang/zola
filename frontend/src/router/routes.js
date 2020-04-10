@@ -1,5 +1,5 @@
 const routes = [
-  { path: "", redirect: "home" },
+  // { path: "", redirect: "login" },
   {
     path: "/login",
     component: () => import("pages/LoginPage.vue"),
