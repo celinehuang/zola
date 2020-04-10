@@ -53,18 +53,19 @@ export default {
       email: this.$store.state.currentUser.email,
       profile_pic: this.$store.state.currentUser.profile_pic,
       id: this.$store.state.currentUser.id,
-      encoded_file: "",
-      changePicture: false
+      newProfilePic: null
     };
   },
   methods: {
     onFileChanged: function(event) {
+      //   console.log(event.target.files[0].type);
+      this.newProfilePic = event.target.files[0];
       this.profile_pic = URL.createObjectURL(event.target.files[0]);
     },
     changeProfile() {
       const id = this.id;
       const formData = new FormData();
-      formData.append("profile_pic", this.profile_pic);
+      formData.append("profile_pic", this.newProfilePic);
       formData.append("name", this.name);
       formData.append("shipping_addr", this.shipping_addr);
       formData.append("email", this.email);
@@ -73,7 +74,6 @@ export default {
         .put("/api/partialupdate/" + this.id + "/", formData, {
           headers: {
             "Content-Type": "multipart/form-data"
-            // "Content-Type": "application/json"
           }
         })
         .then(resp => {
@@ -86,7 +86,6 @@ export default {
           });
         })
         .catch(err => {
-          console.log(err.resp);
           this.$q.notify({
             color: "red-4",
             position: "top",
