@@ -30,13 +30,7 @@
           <q-input filled v-model="shipping_addr" label="Address" />
           <div class="float-right">
             <q-btn class="button q-ma-lg" to="/home" flat label="Cancel" />
-            <q-btn
-              class="button"
-              @click="changeProfile"
-              flat
-              type="submit"
-              label="Done"
-            />
+            <q-btn class="button" flat type="submit" label="Done" />
           </div>
         </q-form>
       </q-page>
@@ -66,28 +60,21 @@ export default {
   methods: {
     onFileChanged: function(event) {
       this.profile_pic = URL.createObjectURL(event.target.files[0]);
-      this.changePicture = true;
-      this.encoded_file = this.profile_pic.encoded_file;
-      //   this.name = name;
-      //   this.shipping_addr = shipping_addr;
-      //   this.email = email;
     },
     changeProfile() {
       const id = this.id;
-      //   const newProfilePic = new FormData(this.profile_pic);
-      //   newProfilePic.append("profile_pic", this.profile_pic);
-      //   console.log(newProfilePic);
-
-      const data = {
-        name: this.name,
-        email: this.email,
-        shipping_addr: this.shipping_addr
-        // profile_pic: newProfilePic
-      };
+      const formData = new FormData();
+      formData.append("profile_pic", this.profile_pic);
+      formData.append("name", this.name);
+      formData.append("shipping_addr", this.shipping_addr);
+      formData.append("email", this.email);
 
       this.$axios
-        .put("/api/partialupdate/" + this.id + "/", data, {
-          headers: { "Content-Type": "application/json" }
+        .put("/api/partialupdate/" + this.id + "/", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+            // "Content-Type": "application/json"
+          }
         })
         .then(resp => {
           this.$q.notify({

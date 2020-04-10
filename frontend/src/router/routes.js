@@ -7,14 +7,9 @@ const routes = [
   },
   {
     path: "/home",
+    component: () => import("layouts/MainLayout.vue"),
     meta: { requiresAuth: true },
-    component: () => import("layouts/MainLayout.vue"),
-    children: []
-  },
-  {
-    path: "/browse-listings",
-    component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("pages/Home.vue") }]
+    children: [{ path: "", component: () => import("pages/home.vue") }]
   },
   {
     path: "/edit-profile",
