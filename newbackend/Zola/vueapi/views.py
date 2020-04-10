@@ -8,6 +8,7 @@ from rest_framework.decorators import permission_classes, api_view, action, auth
 from rest_framework import permissions
 from django.views.generic.base import TemplateResponseMixin
 
+
 class ProfileViewSet(generics.ListAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
@@ -19,6 +20,7 @@ class ProfilePartialUpdateView(generics.GenericAPIView, mixins.UpdateModelMixin,
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     content_type='multipart/form-data'
+
 
     def put(self, request, *args, **kwargs):
         print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
