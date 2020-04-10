@@ -9,13 +9,11 @@ Vue.use(VueRouter);
 var config = require("../config");
 
 // Axios config
-const frontendUrl = config.build.host + ":" + config.build.port;
 const backendUrl = config.build.backendHost + ":" + config.build.backendPort;
 
 var AXIOS = axios.create({
   baseURL: backendUrl,
   headers: {
-    "Access-Control-Allow-Origin": frontendUrl,
     "Content-Type": "application/json"
   }
 });
@@ -52,12 +50,17 @@ export default function(/* { store, ssrContext } */) {
       } else if (Store.getters.isLoggedIn && !Store.state.userExists) {
         // get user with stored token
         const token = Store.state.token;
-        AXIOS.post("/api/rest-auth/user/", { token: token })
+        AXIOS.get("/api/rest-auth/user/", {
+          headers: {
+            Authorization: `Token ${token}`
+          }
+        })
           .then(resp => {
             Store.commit("set_user", resp.data);
             next();
           })
-          .catch(() => {
+          .catch(e => {
+            console.log(e);
             // token is invalid
             Store.dispatch("logout").then(
               next({
