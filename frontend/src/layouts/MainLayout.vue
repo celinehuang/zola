@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
-      <q-toolbar style="background-color: #445c3c">
+      <q-toolbar style="background-color: primary">
         <q-btn
           flat
           dense
@@ -16,13 +16,20 @@
         </q-toolbar-title>
 
         <div class="q-pa-md">
-          <q-btn flat @click="logout" style="letter-spacing:0.15rem">LOGOUT</q-btn>
+          <q-btn flat @click="logout" style="letter-spacing:0.15rem"
+            >LOGOUT</q-btn
+          >
           <q-btn flat icon="shopping_cart" />
         </div>
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-2">
+    <q-drawer
+      v-model="leftDrawerOpen"
+      show-if-above
+      bordered
+      content-class="bg-grey-2"
+    >
       <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; ">
         <q-list padding>
           <q-separator />
@@ -55,7 +62,10 @@
           </q-item>
         </q-list>
       </q-scroll-area>
-      <div class="absolute-top" style="background-color:#fcf9f2; height: 158px; padding: 25px;">
+      <div
+        class="absolute-top"
+        style="background-color:#fcf9f2; height: 158px; padding: 25px;"
+      >
         <q-avatar size="60px" class="q-mb-sm profile-picture">
           <img src="~assets/blank-profile-picture.jpg" />
         </q-avatar>

@@ -1,10 +1,11 @@
 <template>
   <div class="q-pa-md row items-start q-gutter-md">
-    <q-card v-for="item in items" :key="item.id">
+    <q-card class="my-card" v-for="item in items" :key="item.id">
       <img v-bind:src="item.photo" />
       <q-card-section>
         <div class="text-h6">{{ item.mediatype }}</div>
         <div class="text-subtitle2">{{ item.description }}</div>
+        <div class="text-subtitle2">{{ item.price | formatPrice }}</div>
       </q-card-section>
 
       <q-card-actions>
@@ -22,8 +23,13 @@ export default {
       items: null
     };
   },
+  methods: {},
+  filters: {
+    formatPrice: function(value) {
+      return "$" + value.toString();
+    }
+  },
   created() {
-    console.log("getItems called");
     this.$axios.get("http://localhost:8000/api/items/").then(response => {
       this.items = response.data;
     });
@@ -34,5 +40,5 @@ export default {
 <style lang="sass" scoped>
 .my-card
   width: 100%
-  max-width: 500px
+  max-width: 400px
 </style>
