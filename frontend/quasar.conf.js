@@ -39,7 +39,7 @@ module.exports = function(ctx) {
       //            (not treeshaking Quasar; biggest bundle size; convenient)
       all: "auto",
 
-      components: ["QCard", "QCardSection", "QCardActions", "QBtn"],
+      components: ["QCard", "QCardSection", "QCardActions", "QBtn", "QImg"],
       directives: [],
 
       // Quasar plugins

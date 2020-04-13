@@ -1,11 +1,12 @@
 <template>
   <div class="q-pa-md row items-start q-gutter-md">
     <q-card class="my-card" v-for="item in items" :key="item.id">
-      <img v-bind:src="item.photo" />
+      <q-img v-bind:src="item.photo" :ratio="1">
+        <div class="absolute-bottom-left text-subtitle2">{{ item.price | formatPrice }}</div>
+      </q-img>
       <q-card-section>
         <div class="text-h6">{{ item.mediatype }}</div>
         <div class="text-subtitle2">{{ item.description }}</div>
-        <div class="text-subtitle2">{{ item.price | formatPrice }}</div>
       </q-card-section>
 
       <q-card-actions>
