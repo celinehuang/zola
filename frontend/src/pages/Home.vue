@@ -5,14 +5,30 @@
         <div class="price-caption">{{ item.price | formatPrice }}</div>
       </q-img>
       <q-card-section>
-        <div class="text-h6">{{ item.mediatype }}</div>
-        <div class="text-subtitle2">{{ item.description }}</div>
+        <div class="text-h6">Title</div>
+        <div class="text-subtitle2">Artist</div>
       </q-card-section>
 
       <q-card-actions>
-        <q-btn color="primary" label="Add to Cart" />
-        <q-btn color="secondary" label="Buy Now" />
+        <q-btn flat color="primary" icon="add_shopping_cart" />
+        <q-btn flat color="primary" label="Buy Now" />
+        <q-space />
+        <q-btn
+          color="primary"
+          round
+          flat
+          dense
+          :icon="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
+          @click="expanded = !expanded"
+        />
       </q-card-actions>
+
+      <q-slide-transition>
+        <div v-show="expanded">
+          <q-separator />
+          <q-card-section class="text-subitle2">{{ item.description }}</q-card-section>
+        </div>
+      </q-slide-transition>
     </q-card>
   </div>
 </template>
@@ -21,7 +37,8 @@
 export default {
   data() {
     return {
-      items: null
+      items: null,
+      expanded: false
     };
   },
   methods: {},
