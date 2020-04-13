@@ -2,7 +2,7 @@
   <div class="q-pa-md row items-start q-gutter-md">
     <q-card class="my-card" v-for="item in items" :key="item.id">
       <q-img v-bind:src="item.photo" :ratio="1">
-        <div class="absolute-bottom-left text-subtitle2">{{ item.price | formatPrice }}</div>
+        <div class="price-caption">{{ item.price | formatPrice }}</div>
       </q-img>
       <q-card-section>
         <div class="text-h6">{{ item.mediatype }}</div>
@@ -42,4 +42,14 @@ export default {
 .my-card
   width: 100%
   max-width: 400px
+
+.price-caption
+  position: absolute
+  bottom: 10px
+  left: 10px
+  background-color: black
+  border-radius: 5px
+  height: auto
+  width: auto
+  padding: 5px
 </style>
