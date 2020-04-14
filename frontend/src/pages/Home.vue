@@ -1,8 +1,13 @@
 <template>
   <div class="q-pa-md row items-start q-gutter-md">
-    <div class="col-grow" v-for="item in items" v-bind:key="item.id">
-      <Item :id="item.id" :description="item.description" :price="item.price" :photo="item.photo" />
-    </div>
+    <Item
+      v-for="item in items"
+      v-bind:key="item.id"
+      :id="item.id"
+      :description="item.description"
+      :price="item.price"
+      :photo="item.photo"
+    />
   </div>
 </template>
 

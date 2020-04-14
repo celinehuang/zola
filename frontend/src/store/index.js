@@ -62,6 +62,9 @@ const Store = new Vuex.Store({
     },
     add_to_cart(state, id) {
       state.inCart.push(id);
+    },
+    remove_from_cart(state, index) {
+      state.inCart.splice(index, 1);
     }
   },
   actions: {
@@ -138,6 +141,9 @@ const Store = new Vuex.Store({
     },
     addToCart({ commit }, id) {
       commit("add_to_cart", id);
+    },
+    removeFromCart({ commit }, index) {
+      commit("remove_from_cart", index);
     }
   },
 

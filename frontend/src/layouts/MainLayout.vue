@@ -17,7 +17,8 @@
 
         <div class="q-pa-md">
           <q-btn flat @click="logout" style="letter-spacing:0.15rem">LOGOUT</q-btn>
-          <q-btn flat icon="shopping_cart">{{inCart.length}}</q-btn>
+
+          <ShoppingCart />
         </div>
       </q-toolbar>
     </q-header>
@@ -72,18 +73,19 @@
 
 <script>
 import EssentialLink from "components/EssentialLink";
+import ShoppingCart from "../components/ShoppingCart.vue";
 
 export default {
   name: "MainLayout",
-
-  components: {},
-
   data() {
     return {
       leftDrawerOpen: false,
       username: this.$store.state.currentUser.username,
       name: this.$store.state.currentUser.name
     };
+  },
+  components: {
+    ShoppingCart
   },
   computed: {
     inCart() {
@@ -112,5 +114,8 @@ export default {
   font-size: 25px;
   font-weight: bold;
   letter-spacing: 0.5rem;
+}
+.cart {
+  display: inline-block;
 }
 </style>
