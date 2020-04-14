@@ -10,7 +10,7 @@
     </q-card-section>
 
     <q-card-actions>
-      <q-btn flat color="primary" icon="add_shopping_cart" />
+      <q-btn flat color="primary" icon="add_shopping_cart" @click="addToCart(id)" />
       <q-btn flat color="primary" label="Buy Now" />
       <q-space />
       <q-btn
@@ -35,11 +35,17 @@
 <script>
 export default {
   name: "Item",
-  props: ["description", "price", "photo"],
+
   data() {
     return {
       expanded: false
     };
+  },
+  props: ["id", "description", "price", "photo"],
+  methods: {
+    addToCart(id) {
+      this.$store.dispatch("addToCart", id);
+    }
   },
   filters: {
     formatPrice: function(value) {
