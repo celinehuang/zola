@@ -19,6 +19,8 @@ class Item(models.Model):
     username = models.ForeignKey(Profile, on_delete=models.CASCADE)
     mediatype = models.CharField(max_length=50)
     genre = models.CharField(max_length=50)
+    artist = models.CharField(max_length=50)
+    title = models.CharField(max_length=50)
     photo = models.ImageField(
         height_field=None, width_field=None, max_length=100, upload_to='albumart'
     )
