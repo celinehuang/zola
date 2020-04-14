@@ -5,8 +5,8 @@
     </q-img>
 
     <q-card-section>
-      <div class="text-h6">Title</div>
-      <div class="text-subtitle2">Artist</div>
+      <div class="text-h6">{{title}}</div>
+      <div class="text-subtitle2">{{artist}}</div>
     </q-card-section>
 
     <q-card-actions>
@@ -41,7 +41,7 @@ export default {
       expanded: false
     };
   },
-  props: ["id", "description", "price", "photo"],
+  props: ["artist", "title", "id", "description", "price", "photo"],
   methods: {
     addToCart(id) {
       this.$store.dispatch("addToCart", id);

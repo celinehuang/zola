@@ -3,6 +3,8 @@
     <Item
       v-for="item in items"
       v-bind:key="item.id"
+      :artist="item.artist"
+      :title="item.title"
       :id="item.id"
       :description="item.description"
       :price="item.price"

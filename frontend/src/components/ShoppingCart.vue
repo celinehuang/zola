@@ -4,12 +4,13 @@
 
     <q-dialog v-model="cartExpanded">
       <q-card class="cart-cards">
-        <q-card-section>
-          <div class="text-h6">Shopping Cart</div>
-        </q-card-section>
+        <q-toolbar style="background-color:primary">
+          <q-toolbar-title>Shopping Cart</q-toolbar-title>
+          <q-btn flat round dense icon="close" v-close-popup />
+        </q-toolbar>
 
         <q-card-section>
-          <q-list bordered class="rounded-borders" style="min-width: 350px">
+          <q-list style="min-width: 350px">
             <q-item class="list-items" v-for="(item, index) in forSaleInCart" v-bind:key="item.id">
               <q-item-section>
                 <q-avatar rounded>
@@ -18,8 +19,8 @@
               </q-item-section>
 
               <q-item-section>
-                <q-item-label lines="1">Title</q-item-label>
-                <q-item-label caption>Artist</q-item-label>
+                <q-item-label lines="1">{{item.title}}</q-item-label>
+                <q-item-label caption>{{item.artist}}</q-item-label>
               </q-item-section>
               <q-item-section>{{item.price | formatPrice}}</q-item-section>
 
@@ -30,7 +31,15 @@
           </q-list>
         </q-card-section>
 
-        <q-card-section>Total: {{totalPrice | formatPrice}}</q-card-section>
+        <div v-if="forSaleInCart.length > 0">
+          <q-card-section align="right">
+            <div class="text-subtitle">Total: {{totalPrice | formatPrice}}</div>
+          </q-card-section>
+
+          <q-card-actions align="right">
+            <q-btn flat color="primary">Checkout</q-btn>
+          </q-card-actions>
+        </div>
       </q-card>
     </q-dialog>
   </div>
@@ -69,7 +78,7 @@ export default {
     }
   },
   methods: {
-    removeFromCart(id) {
+    removeFromCart(index) {
       this.$store.dispatch("removeFromCart", index);
     }
   },
