@@ -9,7 +9,7 @@ from rest_auth.serializers import UserDetailsSerializer
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ('username','email','name','shipping_addr', 'profile_pic')
+        fields = ('username','email','name','shipping_addr', 'profile_pic', 'id')
         
 class LoginSerializer(RestAuthLoginSerializer):
     email = None
@@ -38,4 +38,4 @@ class PaymentSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ('username', 'email','name','shipping_addr', 'profile_pic')
+        fields = ('username', 'email','name','shipping_addr', 'profile_pic', 'id')
