@@ -74,7 +74,6 @@ const Store = new Vuex.Store({
         })
           .then(resp => {
             const token = resp.data.key;
-            console.log("hello" + token);
             // get user from rest-auth/user by token
             AXIOS.get("/api/rest-auth/user", {
               headers: {

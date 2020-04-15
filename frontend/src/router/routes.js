@@ -1,5 +1,5 @@
 const routes = [
-  { path: "", redirect: "home" },
+  { path: "", redirect: "/login" },
   {
     path: "/login",
     component: () => import("pages/LoginPage.vue"),
@@ -7,8 +7,8 @@ const routes = [
   },
   {
     path: "/home",
-    meta: { requiresAuth: true },
     component: () => import("layouts/MainLayout.vue"),
+    meta: { requiresAuth: true },
     children: [{ path: "", component: () => import("pages/Home.vue") }]
   },
   {
@@ -34,6 +34,14 @@ const routes = [
     component: () => import("layouts/MainLayout.vue"),
     meta: { requiresAuth: true },
     children: [{ path: "", component: () => import("pages/Messages.vue") }]
+  },
+  {
+    path: "/change-password",
+    component: () => import("layouts/MainLayout.vue"),
+    meta: { requiresAuth: true },
+    children: [
+      { path: "", component: () => import("pages/ChangePassword.vue") }
+    ]
   }
 ];
 
