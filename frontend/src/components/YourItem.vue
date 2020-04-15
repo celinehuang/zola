@@ -13,6 +13,10 @@
       <div class="text-subtitle2">Media Type: {{ mediatype }}<q-btn class="buttonformat" flat color="primary" label="Edit" @click="editPopUp('mediatype')"/></div>
       <br>
       <div class="text-subtitle2">Genre: {{ genre }}<q-btn flat class="buttonformat" color="primary" label="Edit" @click="editPopUp('genre')"/></div>
+      <br>
+      <div class="text-subtitle2">Stock: {{ inventory_count }}<q-btn flat class="buttonformat" color="primary" label="Edit" @click="editPopUp('inventory_count')"/></div>
+      <br>
+      <div class="text-subtitle2">Price: {{ price | formatPrice }}<q-btn flat class="buttonformat" color="primary" label="Edit" @click="editPopUp('price')"/></div>
     </q-card-section>
 
     <q-card-actions>
@@ -30,7 +34,7 @@
     <q-slide-transition>
       <div v-show="expanded">
         <q-separator />
-        <q-card-section class="text-subitle2">{{ description }}<q-btn flat color="primary" label="Edit" @click="editPopUp" /></q-card-section>
+        <q-card-section class="text-subitle2">{{ description }}<q-btn flat color="primary" label="Edit" @click="editPopUp('description')" /></q-card-section>
       </div>
     </q-slide-transition>
   </q-card>
@@ -45,17 +49,28 @@ export default {
       expanded: false
     };
   },
-  props: ["id", "description", "price", "photo", "title", "artist", "mediatype", "genre"],
+  props: ["id", "description", "price", "photo", "title", "artist", "mediatype", "genre", "inventory_count"],
   methods: {
     editPopUp(title) {
-        var self = this
-      console.log('here')
+
+      let formatted_title = title;
+      let type = 'text';
+      if (title == "inventory_count") {
+        formatted_title = 'inventory count';
+      }
+      if (title== "description"){
+        type = "textarea";
+      }
+      else if (title == "price" || title == "inventory_count") {
+        type = "number";
+      }
+
       this.$q.dialog({
-              title: "Edit " + title,
+              title: "Edit " + formatted_title,
               prompt: {
                 model: this[title],
-                type: 'text',
-                label: title
+                type: type,
+                label: formatted_title
               },
               cancel: true,
               color: 'secondary'

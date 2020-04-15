@@ -14,15 +14,10 @@
         <q-input filled label="Genre" />
         <q-input filled label="Description" />
         <q-input filled label="Media Type" />
-        <q-input filled type="date" label="Release Date" />
+        <q-input filled stack-label type="date" label="Release Date" />
         <q-input filled v-model.number="price" type="number" label="Price" />
-        <q-input
-          filled
-          v-model.number="inventory"
-          type="number"
-          label="Inventory"
-        />
-        <q-input filled type="file" label="Cover Art" />
+        <q-input filled v-model.number="inventory" type="number" label="Inventory" />
+        <q-input filled stack-label type="file" label="Cover Art" />
         <div style="text-align:center;">
           <q-btn
             label="Create listing"
@@ -51,6 +46,8 @@
           :artist="item.artist"
           :genre="item.genre"
           :mediatype="item.mediatype"
+          :inventory_count="item.inventory_count"
+          :release_year="item.release_year"
         />
       </div>
     </div>
