@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-md row items-start q-gutter-md">
     <div class="col-grow" v-for="item in items" v-bind:key="item.id">
-      <Item :id="item.id" :description="item.description" :price="item.price" :photo="item.photo" />
+      <Item :id="item.id" :description="item.description" :price="item.price" :photo="item.photo" :title="item.title" :artist="item.artist"/>
     </div>
   </div>
 </template>
