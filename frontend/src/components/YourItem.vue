@@ -6,13 +6,16 @@
     </q-img>
 
     <q-card-section>
-      <div class="text-h6">{{ title}}</div>
-      <div class="text-subtitle2">{{ artist }}</div>
+      <div class="text-h6">Title: {{ title }}<q-btn flat color="primary" label="Edit" @click="editPopUp('title')" style="float:right;margin-left: -50%;margin-bottom : 35px;white-space: normal"/></div>
+      <br>
+      <div class="text-subtitle2">Artist: {{ artist }}<q-btn class="buttonformat" flat color="primary" label="Edit" @click="editPopUp('artist')"/></div>
+      <br>
+      <div class="text-subtitle2">Media Type: {{ mediatype }}<q-btn class="buttonformat" flat color="primary" label="Edit" @click="editPopUp('mediatype')"/></div>
+      <br>
+      <div class="text-subtitle2">Genre: {{ genre }}<q-btn flat class="buttonformat" color="primary" label="Edit" @click="editPopUp('genre')"/></div>
     </q-card-section>
 
     <q-card-actions>
-      <q-btn flat color="primary" label="Edit" @click="editPopUp" />
-      <!-- <q-btn flat color="primary" label="Buy Now" /> -->
       <q-space />
       <q-btn
         color="primary"
@@ -27,7 +30,7 @@
     <q-slide-transition>
       <div v-show="expanded">
         <q-separator />
-        <q-card-section class="text-subitle2">{{ description }}</q-card-section>
+        <q-card-section class="text-subitle2">{{ description }}<q-btn flat color="primary" label="Edit" @click="editPopUp" /></q-card-section>
       </div>
     </q-slide-transition>
   </q-card>
@@ -42,17 +45,17 @@ export default {
       expanded: false
     };
   },
-  props: ["id", "description", "price", "photo", "title", "artist"],
+  props: ["id", "description", "price", "photo", "title", "artist", "mediatype", "genre"],
   methods: {
-    editPopUp() {
+    editPopUp(title) {
         var self = this
       console.log('here')
       this.$q.dialog({
-              title: 'Edit',
+              title: "Edit " + title,
               prompt: {
-                model: this.title,
+                model: this[title],
                 type: 'text',
-                label: 'title'
+                label: title
               },
               cancel: true,
               color: 'secondary'
@@ -81,4 +84,14 @@ export default {
     height: auto
     width: auto
     padding: 5px
+</style>
+
+<style scoped>
+.buttonformat {
+    float: right;
+    margin-left: -50%;
+    margin-bottom : 35px;
+    white-space: normal;
+    top:-6px
+}
 </style>
