@@ -6,3 +6,4 @@ http://127.0.0.1:8000/api/rest-auth/logout		#logout current user
 http://127.0.0.1:8000/api/users				#get all the users
 http://127.0.0.1:8000/api/items				#GET to get all the items, POST to create new
 http://127.0.0.1:8000/api/payments			#GET to get all payments, POST to create new
+http://127.0.0.1:8000/api/partialupdate/<int:pk>/   #POST with the fields to update i.e. {:name":"bob"}
