@@ -1,13 +1,13 @@
 <template>
   <div class="q-pa-md row items-start q-gutter-md">
     <div v-for="item in curr_users_items" v-bind:key="item.id">
-      <Item :id="item.id" :description="item.description" :price="item.price" :photo="item.photo" :title="item.title" :artist="item.artist"/>
+      <YourItem :id="item.id" :description="item.description" :price="item.price" :photo="item.photo" :title="item.title" :artist="item.artist"/>
     </div>
   </div>
 </template>
 
 <script>
-import Item from "../components/Item.vue";
+import YourItem from "../components/YourItem.vue";
 
 export default {
   data() {
@@ -25,7 +25,7 @@ export default {
   },
   methods: {},
   components: {
-    Item
+    YourItem
   },
   created() {
     console.log(this.id);
@@ -34,11 +34,8 @@ export default {
       .get("http://localhost:8000/api/items/")
       .then(response => {
         this.items = response.data;
-        console.log(self.id);
-        console.log(this.username)
         this.curr_users_items = {};
         Object.keys(this.items).forEach((key) => {
-            console.log(this.items[key].username, this.id)
             if (this.items[key].username == this.id) {
                 this.curr_users_items[key] = this.items[key]
             }
