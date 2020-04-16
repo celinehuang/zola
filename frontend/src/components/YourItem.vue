@@ -4,7 +4,7 @@
       <div class="price-caption">{{ price | formatPrice }}</div>
     </q-img>
 
-    <q-card-section>
+    <q-card-section class="">
       <div class="text-h6">Title: {{ title }}</div>
       <div class="text-subtitle2">Artist: {{ artist }}</div>
       <div class="text-subtitle2">Media Type: {{ mediatype }}</div>
@@ -16,7 +16,7 @@
         color="primary"
         label="Edit"
         @click="showEditItemPopup = true"
-        style="float:right;margin-left: -50%;margin-bottom : 35px;white-space: normal"
+        class="float-right"
       />
     </q-card-section>
 
@@ -34,7 +34,6 @@
 
     <q-dialog v-model="showEditItemPopup">
       <EditItemPopup
-        @created="msgReceived()"
         @item-updated="notifyParent"
         :id="this.id"
         :title="this.title"
@@ -86,9 +85,6 @@ export default {
     "release_year"
   ],
   methods: {
-    msgReceived() {
-      console.log("here!!!!!!!!!!!!!!!!!");
-    },
     notifyParent() {
       this.showEditItemPopup = false;
 
@@ -103,28 +99,20 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
-.my-card
-    width: 100%
-    max-width: 400px
-
-.price-caption
-    position: absolute
-    bottom: 10px
-    left: 10px
-    background-color: black
-    border-radius: 5px
-    height: auto
-    width: auto
-    padding: 5px
-</style>
-
 <style scoped>
-.buttonformat {
-  float: right;
-  margin-left: -50%;
-  margin-bottom: 35px;
-  white-space: normal;
-  top: -6px;
+.my-card {
+  width: 240px;
+  height: 450px;
+  overflow: scroll;
+}
+.price-caption {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background-color: black;
+  border-radius: 5px;
+  height: auto;
+  width: auto;
+  padding: 5px;
 }
 </style>

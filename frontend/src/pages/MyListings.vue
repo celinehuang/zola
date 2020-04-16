@@ -66,7 +66,7 @@
             Your Listings
           </q-toolbar-title>
         </q-toolbar>
-        <div class="q-pa-md row items-start q-gutter-md thing">
+        <div class="q-pa-md row items-start q-gutter-md ">
           <div v-for="item in curr_users_items" v-bind:key="item.id">
             <YourItem
               :id="item.id"
@@ -214,7 +214,7 @@ export default {
 </script>
 
 <style scoped>
-.thing {
+/* .thing {
   padding-top: 20px;
-}
+} */
 </style>

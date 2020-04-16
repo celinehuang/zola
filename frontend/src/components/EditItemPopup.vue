@@ -9,9 +9,19 @@
       <q-form class="q-gutter-sm" @submit="updateItem">
         <q-input filled v-model="title_" label="Title" />
         <q-input filled v-model="artist_" label="Artist" />
-        <q-input filled v-model="genre_" label="Genre" />
+        <q-select
+          filled
+          v-model="genre_"
+          :options="genreOptions"
+          label="Genre"
+        />
         <q-input filled v-model="description_" label="Description" />
-        <q-input filled v-model="mediatype_" label="Media Type" />
+        <q-select
+          filled
+          v-model="mediatype_"
+          :options="mediatypeOptions"
+          label="Media Type"
+        />
         <q-input
           filled
           stack-label
@@ -41,7 +51,6 @@
           @change="onFileChanged"
           label="Cover Art"
         />
-
         <q-btn
           class="q-ma-sm"
           color="primary"
@@ -70,6 +79,22 @@ export default {
   name: "EditItemPopup",
   data: function() {
     return {
+      mediatypeOptions: ["Vinyl", "CD", "Cassette", "DVD", "Box Set"],
+      genreOptions: [
+        "Alternative",
+        "Blues",
+        "Classical",
+        "Country",
+        "Electronic",
+        "Folk",
+        "Hip Hop",
+        "Jazz",
+        "Metal",
+        "Pop",
+        "Punk",
+        "Rock",
+        "R&B"
+      ],
       id_: this.id,
       description_: this.description,
       price_: this.price,
@@ -85,16 +110,6 @@ export default {
   },
 
   methods: {
-    // following method is REQUIRED
-    show() {
-      this.$refs.dialog.show();
-    },
-
-    // following method is REQUIRED
-    hide() {
-      this.$refs.dialog.hide();
-    },
-
     updateItem: function() {
       const id = this.id;
       const formData = new FormData();
@@ -138,27 +153,6 @@ export default {
           });
         });
     },
-
-    test() {
-      console.log("here 2222222");
-    },
-
-    onDialogHide() {
-      this.$emit("hide");
-    },
-
-    onOKClick() {
-      this.$emit("ok");
-      // or with payload: this.$emit('ok', { ... })
-
-      // then hiding dialog
-      this.hide();
-    },
-
-    onCancelClick() {
-      this.hide();
-    },
-
     onFileChanged: function(event) {
       //   console.log(event.target.files[0].type);
       this.newPic = event.target.files[0];
