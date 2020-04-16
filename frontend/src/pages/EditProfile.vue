@@ -53,7 +53,8 @@ export default {
       email: this.$store.state.currentUser.email,
       profile_pic: this.$store.state.currentUser.profile_pic,
       id: this.$store.state.currentUser.id,
-      newProfilePic: null
+      newProfilePic: null,
+      picChanged: false
     };
   },
   methods: {
@@ -61,17 +62,20 @@ export default {
       //   console.log(event.target.files[0].type);
       this.newProfilePic = event.target.files[0];
       this.profile_pic = URL.createObjectURL(event.target.files[0]);
+      this.picChanged = true;
     },
     changeProfile() {
       const id = this.id;
       const formData = new FormData();
-      formData.append("profile_pic", this.newProfilePic);
+      if (this.picChanged == true) {
+        formData.append("profile_pic", this.newProfilePic);
+      }
       formData.append("name", this.name);
       formData.append("shipping_addr", this.shipping_addr);
       formData.append("email", this.email);
 
       this.$axios
-        .put("/api/partialupdate/" + this.id + "/", formData, {
+        .patch("/api/partialupdate/" + this.id + "/", formData, {
           headers: {
             "Content-Type": "multipart/form-data"
           }

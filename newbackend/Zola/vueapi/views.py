@@ -22,7 +22,7 @@ class ProfilePartialUpdateView(generics.GenericAPIView, mixins.UpdateModelMixin,
     content_type='multipart/form-data'
 
 
-    def put(self, request, *args, **kwargs):
+    def patch(self, request, *args, **kwargs):
         print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
         return self.partial_update(request, *args, **kwargs)
 
