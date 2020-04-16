@@ -1,7 +1,17 @@
 <template>
-  <div class="q-pa-md row items-start q-gutter-md">
-    <div class="col-grow" v-for="item in items" v-bind:key="item.id">
-      <Item :id="item.id" :description="item.description" :price="item.price" :photo="item.photo" :title="item.title" :artist="item.artist"/>
+  <div class="container">
+    <div class="q-pa-md row justify-center items-start q-gutter-md">
+      <Item
+        style="margin: 10px"
+        v-for="item in items"
+        v-bind:key="item.id"
+        :artist="item.artist"
+        :title="item.title"
+        :id="item.id"
+        :description="item.description"
+        :price="item.price"
+        :photo="item.photo"
+      />
     </div>
   </div>
 </template>
@@ -21,7 +31,6 @@ export default {
   },
   created() {
     this.$axios
-      .get("http://localhost:8000/api/items/")
       .then(response => {
         this.items = response.data;
       })
@@ -38,4 +47,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.container
+  padding: 20px
+  justify-content: center
 </style>

@@ -59,3 +59,20 @@ export default {
   }
 };
 </script>
+<style lang="sass" scoped>
+.my-card
+  width: 100%
+  max-width: 400px
+
+.price-caption
+  position: absolute
+  bottom: 10px
+  left: 10px
+  background-color: black
+  border-radius: 5px
+  height: auto
+  width: auto
+  padding: 5px
+</style>
+
+

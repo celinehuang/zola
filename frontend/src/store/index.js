@@ -62,6 +62,9 @@ const Store = new Vuex.Store({
     },
     add_to_cart(state, id) {
       state.inCart.push(id);
+    },
+    remove_from_cart(state, index) {
+      state.inCart.splice(index, 1);
     }
   },
   actions: {
@@ -135,6 +138,11 @@ const Store = new Vuex.Store({
         resolve();
       });
     },
+    addToCart({ commit }, id) {
+      commit("add_to_cart", id);
+    },
+    removeFromCart({ commit }, index) {
+      commit("remove_from_cart", index);
     refreshLoggedInUser({ commit }) {
       return new Promise((resolve, reject) => {
         const token = Store.state.token;
@@ -154,10 +162,6 @@ const Store = new Vuex.Store({
           });
       });
     },
-    addToCart({ commit }, id) {
-      commit("add_to_cart", id);
-    }
-  },
 
   // enable strict mode (adds overhead!)
   // for dev mode only
