@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="column thing" style="padding-bottom:20px;" >
+    <div class="column thing" style="padding-bottom:20px;">
       <div class="text-h5 text-weight-bold q-px-lg q-pt-lg">
         ADD A NEW ITEM
       </div>
@@ -14,10 +14,35 @@
         <q-input filled v-model="genre" label="Genre" />
         <q-input filled v-model="description" label="Description" />
         <q-input filled v-model="mediatype" label="Media Type" />
-        <q-input filled stack-label v-model="release_year" type="date" label="Release Date" />
-        <q-input filled v-model="price" v-model.number="price" prefix="$" type="number" :decimals="2" label="Price" />
-        <q-input filled v-model="inventory_count" type="number" label="Inventory" />
-        <q-input filled stack-label v-model="photo" type="file" @change="onFileChanged" label="Cover Art" />
+        <q-input
+          filled
+          stack-label
+          v-model="release_year"
+          type="date"
+          label="Release Date"
+        />
+        <q-input
+          filled
+          v-model="price"
+          mask="#.##"
+          fill-mask="0"
+          reverse-fill-mask
+          label="Price"
+        />
+        <q-input
+          filled
+          v-model="inventory_count"
+          type="number"
+          label="Inventory"
+        />
+        <q-input
+          filled
+          stack-label
+          v-model="photo"
+          type="file"
+          @change="onFileChanged"
+          label="Cover Art"
+        />
         <div style="text-align:center;">
           <q-btn
             label="Create listing"
