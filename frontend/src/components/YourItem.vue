@@ -15,7 +15,7 @@
         flat
         color="primary"
         label="Edit"
-        @click="showEditItemPopup"
+        @click="showEditItemPopup = true"
         style="float:right;margin-left: -50%;margin-bottom : 35px;white-space: normal"
       />
     </q-card-section>
@@ -31,7 +31,24 @@
         @click="expanded = !expanded"
       />
     </q-card-actions>
-    <EditItemPopup @created="msgReceived()" />
+
+    <q-dialog v-model="showEditItemPopup">
+      <EditItemPopup
+        @created="msgReceived()"
+        @item-updated="notifyParent"
+        :id="this.id"
+        :title="this.title"
+        :artist="this.artist"
+        :genre="this.genre"
+        :description="this.description"
+        :mediatype="this.mediatype"
+        :release_year="this.release_year"
+        :price="this.price"
+        :inventory_count="this.inventory_count"
+        :photo="this.photo"
+      />
+    </q-dialog>
+
     <q-slide-transition>
       <div v-show="expanded">
         <q-separator />
@@ -49,6 +66,7 @@ export default {
 
   data() {
     return {
+      showEditItemPopup: false,
       expanded: false
     };
   },
@@ -68,26 +86,13 @@ export default {
     "release_year"
   ],
   methods: {
-    showEditItemPopup() {
-      this.$q.dialog({
-        component: EditItemPopup,
-
-        parent: this,
-
-        title: this.title,
-        id: this.id,
-        description: this.description,
-        price: this.price,
-        photo: this.photo,
-        artist: this.artist,
-        mediatype: this.mediatype,
-        genre: this.genre,
-        inventory_count: this.inventory_count,
-        release_year: this.release_year
-      });
-    },
     msgReceived() {
       console.log("here!!!!!!!!!!!!!!!!!");
+    },
+    notifyParent() {
+      this.showEditItemPopup = false;
+
+      this.$emit("item-updated");
     }
   },
   filters: {

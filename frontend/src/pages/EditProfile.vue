@@ -88,6 +88,8 @@ export default {
             icon: "cloud_done",
             message: "Successfully Updated Profile"
           });
+
+          this.$store.dispatch("refreshLoggedInUser");
         })
         .catch(err => {
           this.$q.notify({

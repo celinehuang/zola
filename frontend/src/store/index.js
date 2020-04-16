@@ -135,6 +135,25 @@ const Store = new Vuex.Store({
         resolve();
       });
     },
+    refreshLoggedInUser({ commit }) {
+      return new Promise((resolve, reject) => {
+        const token = Store.state.token;
+        AXIOS.get("/api/rest-auth/user/", {
+          headers: {
+            Authorization: `Token ${token}`
+          }
+        })
+          .then(resp => {
+            commit("set_user", resp.data);
+            resolve(resp);
+          })
+          .catch(e => {
+            // token is invalid
+            dispatch("logout");
+            reject(e);
+          });
+      });
+    },
     addToCart({ commit }, id) {
       commit("add_to_cart", id);
     }

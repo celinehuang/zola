@@ -1,58 +1,56 @@
 <template>
-  <q-dialog ref="dialog" @hide="onDialogHide">
-    <q-card class="item-edit">
-      <q-card-section class="row items-center">
-        <div class="text-h6">Edit item</div>
-        <q-space />
-        <q-btn icon="close" flat round dense v-close-popup />
-      </q-card-section>
-      <q-card-section>
-        <q-form class="q-gutter-sm" @submit="addItem">
-          <q-input filled v-model="title_" label="Title" />
-          <q-input filled v-model="artist_" label="Artist" />
-          <q-input filled v-model="genre_" label="Genre" />
-          <q-input filled v-model="description_" label="Description" />
-          <q-input filled v-model="mediatype_" label="Media Type" />
-          <q-input
-            filled
-            stack-label
-            v-model="release_year_"
-            type="date"
-            label="Release Date"
-          />
-          <q-input
-            filled
-            v-model="price_"
-            mask="#.##"
-            fill-mask="0"
-            reverse-fill-mask
-            label="Price"
-          />
-          <q-input
-            filled
-            v-model="inventory_count_"
-            type="number"
-            label="Inventory"
-          />
-          <q-input
-            filled
-            stack-label
-            v-model="photo_"
-            type="file"
-            @change="onFileChanged"
-            label="Cover Art"
-          />
+  <q-card class="item-edit">
+    <q-card-section class="row items-center">
+      <div class="text-h6">Edit item</div>
+      <q-space />
+      <q-btn icon="close" flat round dense v-close-popup />
+    </q-card-section>
+    <q-card-section>
+      <q-form class="q-gutter-sm" @submit="updateItem">
+        <q-input filled v-model="title_" label="Title" />
+        <q-input filled v-model="artist_" label="Artist" />
+        <q-input filled v-model="genre_" label="Genre" />
+        <q-input filled v-model="description_" label="Description" />
+        <q-input filled v-model="mediatype_" label="Media Type" />
+        <q-input
+          filled
+          stack-label
+          v-model="release_year_"
+          type="date"
+          label="Release Date"
+        />
+        <q-input
+          filled
+          v-model="price_"
+          mask="#.##"
+          fill-mask="0"
+          reverse-fill-mask
+          label="Price"
+        />
+        <q-input
+          filled
+          v-model="inventory_count_"
+          type="number"
+          label="Inventory"
+        />
+        <q-input
+          filled
+          stack-label
+          v-model="photo_"
+          type="file"
+          @change="onFileChanged"
+          label="Cover Art"
+        />
 
-          <q-btn
-            class="q-ma-sm"
-            color="primary"
-            type="submit"
-            label="Update Item"
-          />
-        </q-form>
-      </q-card-section>
-    </q-card>
-  </q-dialog>
+        <q-btn
+          class="q-ma-sm"
+          color="primary"
+          type="submit"
+          label="Update Item"
+        />
+      </q-form>
+    </q-card-section>
+  </q-card>
 </template>
 
 <script>
@@ -69,9 +67,7 @@ export default {
     "inventory_count",
     "release_year"
   ],
-
   name: "EditItemPopup",
-
   data: function() {
     return {
       id_: this.id,
@@ -99,7 +95,7 @@ export default {
       this.$refs.dialog.hide();
     },
 
-    addItem: function() {
+    updateItem: function() {
       const id = this.id;
       const formData = new FormData();
       if (this.pic_changed == true) {
@@ -129,6 +125,8 @@ export default {
             icon: "cloud_done",
             message: "Successfully Updated Item"
           });
+
+          this.$emit("item-updated");
         })
         .catch(err => {
           this.$q.notify({
@@ -139,9 +137,6 @@ export default {
             message: "Something went wrong, please try again."
           });
         });
-
-      this.hide();
-      this.$emit("created");
     },
 
     test() {

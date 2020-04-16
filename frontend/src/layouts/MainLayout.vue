@@ -100,9 +100,7 @@
 <script>
 export default {
   name: "MainLayout",
-
   components: {},
-
   data() {
     return {
       leftDrawerOpen: false,
