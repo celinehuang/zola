@@ -1,6 +1,6 @@
 <template>
-  <q-card class="item-edit">
-    <q-card-section class="row items-center">
+  <q-card>
+    <q-card-section class="row ">
       <div class="text-h6">Edit item</div>
       <q-space />
       <q-btn icon="close" flat round dense v-close-popup />
@@ -154,7 +154,6 @@ export default {
         });
     },
     onFileChanged: function(event) {
-      //   console.log(event.target.files[0].type);
       this.newPic = event.target.files[0];
       this.oldPic = URL.createObjectURL(event.target.files[0]);
       this.pic_changed = true;
@@ -162,8 +161,4 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
-.item-edit {
-  min-width: 500px;
-}
-</style>
+<style lang="scss" scoped></style>

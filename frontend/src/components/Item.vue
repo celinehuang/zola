@@ -1,16 +1,21 @@
 <template>
   <q-card class="my-card">
     <q-img v-bind:src="photo" :ratio="1">
-      <div class="price-caption">{{ price | formatPrice }}</div>
+      <div>{{ price | formatPrice }}</div>
     </q-img>
 
     <q-card-section>
-      <div class="text-h6">{{ title}}</div>
+      <div class="text-h6">{{ title }}</div>
       <div class="text-subtitle2">{{ artist }}</div>
     </q-card-section>
 
     <q-card-actions>
-      <q-btn flat color="primary" icon="add_shopping_cart" @click="addToCart(id)" />
+      <q-btn
+        flat
+        color="primary"
+        icon="add_shopping_cart"
+        @click="addToCart(id)"
+      />
       <q-btn flat color="primary" label="Buy Now" />
       <q-space />
       <q-btn
@@ -54,19 +59,3 @@ export default {
   }
 };
 </script>
-
-<style lang="sass" scoped>
-.my-card
-    width: 100%
-    max-width: 400px
-
-.price-caption
-    position: absolute
-    bottom: 10px
-    left: 10px
-    background-color: black
-    border-radius: 5px
-    height: auto
-    width: auto
-    padding: 5px
-</style>

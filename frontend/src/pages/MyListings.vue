@@ -136,11 +136,7 @@ export default {
     YourItem
   },
   methods: {
-    methodThatForcesUpdate() {
-      this.$forceUpdate(); // Notice we have to use a $ here
-    },
     onFileChanged: function(event) {
-      //   console.log(event.target.files[0].type);
       this.newPic = event.target.files[0];
       this.oldPic = URL.createObjectURL(event.target.files[0]);
     },
@@ -184,7 +180,7 @@ export default {
     },
     getUserItems() {
       this.$axios
-        .get("http://localhost:8000/api/items/")
+        .get("/api/items/")
         .then(response => {
           this.items = response.data;
           console.log(this.items);
@@ -212,9 +208,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-/* .thing {
-  padding-top: 20px;
-} */
-</style>
