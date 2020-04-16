@@ -1,22 +1,18 @@
 <template>
 
   <q-card class="my-card">
-    <q-img v-bind:src="photo" :ratio="1">
+    <q-img v-bind:src="photo" :ratio="1" height="240px" width="240px" >
       <div class="price-caption">{{ price | formatPrice }}</div>
     </q-img>
 
     <q-card-section>
-      <div class="text-h6">Title: {{ title }}<q-btn flat color="primary" label="Edit" @click="editPopUp('title')" style="float:right;margin-left: -50%;margin-bottom : 35px;white-space: normal"/></div>
-      <br>
-      <div class="text-subtitle2">Artist: {{ artist }}<q-btn class="buttonformat" flat color="primary" label="Edit" @click="editPopUp('artist')"/></div>
-      <br>
-      <div class="text-subtitle2">Media Type: {{ mediatype }}<q-btn class="buttonformat" flat color="primary" label="Edit" @click="editPopUp('mediatype')"/></div>
-      <br>
-      <div class="text-subtitle2">Genre: {{ genre }}<q-btn flat class="buttonformat" color="primary" label="Edit" @click="editPopUp('genre')"/></div>
-      <br>
-      <div class="text-subtitle2">Stock: {{ inventory_count }}<q-btn flat class="buttonformat" color="primary" label="Edit" @click="editPopUp('inventory_count')"/></div>
-      <br>
-      <div class="text-subtitle2">Price: {{ price | formatPrice }}<q-btn flat class="buttonformat" color="primary" label="Edit" @click="editPopUp('price')"/></div>
+      <div class="text-h6">Title: {{ title }}</div>
+      <div class="text-subtitle2">Artist: {{ artist }}</div>
+      <div class="text-subtitle2">Media Type: {{ mediatype }}</div>
+      <div class="text-subtitle2">Genre: {{ genre }}</div>
+      <div class="text-subtitle2">Stock: {{ inventory_count }}</div>
+      <div class="text-subtitle2">Price: {{ price | formatPrice }}</div>
+      <q-btn flat color="primary" label="Edit" @click="showEditItemPopup" style="float:right;margin-left: -50%;margin-bottom : 35px;white-space: normal"/>
     </q-card-section>
 
     <q-card-actions>
@@ -34,13 +30,16 @@
     <q-slide-transition>
       <div v-show="expanded">
         <q-separator />
-        <q-card-section class="text-subitle2">{{ description }}<q-btn flat color="primary" label="Edit" @click="editPopUp('description')" /></q-card-section>
+        <q-card-section class="text-subitle2">{{ description }}</q-card-section>
       </div>
     </q-slide-transition>
   </q-card>
 </template>
 
 <script>
+
+import EditItemPopup from "../components/EditItemPopup.vue";
+
 export default {
   name: "YourItem",
 
@@ -49,33 +48,27 @@ export default {
       expanded: false
     };
   },
-  props: ["id", "description", "price", "photo", "title", "artist", "mediatype", "genre", "inventory_count"],
+  props: ["id", "description", "price", "photo", "title", "artist", "mediatype", "genre", "inventory_count", "release_year"],
   methods: {
-    editPopUp(title) {
-
-      let formatted_title = title;
-      let type = 'text';
-      if (title == "inventory_count") {
-        formatted_title = 'inventory count';
-      }
-      if (title== "description"){
-        type = "textarea";
-      }
-      else if (title == "price" || title == "inventory_count") {
-        type = "number";
-      }
-
+    showEditItemPopup() {
+      console.log('nin here bitch')
       this.$q.dialog({
-              title: "Edit " + formatted_title,
-              prompt: {
-                model: this[title],
-                type: type,
-                label: formatted_title
-              },
-              cancel: true,
-              color: 'secondary'
-            }).then(data => {})
-    }
+        component: EditItemPopup,
+
+        parent: this,
+
+        title: this.title,
+        id: this.id,
+        description:this.description,
+        price:this.price,
+        photo: this.photo,
+        artist: this.artist,
+        mediatype:this.mediatype,
+        genre: this.genre,
+        inventory_count: this.inventory_count,
+        release_year:this.release_year
+      })
+    },
   },
   filters: {
     formatPrice: function(value) {

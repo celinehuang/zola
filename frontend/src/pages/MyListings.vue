@@ -16,7 +16,7 @@
         <q-input filled v-model="description" label="Description" />
         <q-input filled v-model="mediatype" label="Media Type" />
         <q-input filled stack-label v-model="release_year" type="date" label="Release Date" />
-        <q-input filled v-model="price" v-model.number="price" type="number" label="Price" />
+        <q-input filled v-model="price" v-model.number="price" prefix="$" type="number" :decimals="2" label="Price" />
         <q-input filled v-model="inventory_count" type="number" label="Inventory" />
         <q-input filled stack-label v-model="photo" type="file" @change="onFileChanged" label="Cover Art" />
         <div style="text-align:center;">
@@ -80,7 +80,7 @@ export default {
       name: this.$store.state.currentUser.name,
       shipping_addr: this.$store.state.currentUser.shipping_addr,
       email: this.$store.state.currentUser.email,
-      profile_pic: this.$store.state.currentUser.profile_pic,
+      oldPic: this.$store.state.currentUser.oldPic,
       id: this.$store.state.currentUser.id,
       token: this.$store.state.token
     };
@@ -91,21 +91,10 @@ export default {
   methods: {
     onFileChanged: function(event) {
       //   console.log(event.target.files[0].type);
-      this.newProfilePic = event.target.files[0];
-      this.profile_pic = URL.createObjectURL(event.target.files[0]);
+      this.newPic = event.target.files[0];
+      this.oldPic = URL.createObjectURL(event.target.files[0]);
     },
     createitem() {
-      // let inventory_count = this.inventory_count;
-      // let price = this.price;
-      // let artist = this.artist;
-      // let genre = this.title;
-      // let description = this.description;
-      // let mediatype = this.mediatype;
-      // let release_year = this.release_year;
-      // let photo = this.newProfilePic;
-      // let title = this.title;
-      // //experiment with this one
-      // let username = this.id;
       const formData = new FormData();
       formData.append("inventory_count", this.inventory_count);
       formData.append("price", this.price);
@@ -114,7 +103,7 @@ export default {
       formData.append("description", this.description);
       formData.append("mediatype", this.mediatype);
       formData.append("release_year", this.release_year);
-      formData.append("photo", this.newProfilePic);
+      formData.append("photo", this.newPic);
       formData.append("username", this.id);
       formData.append("title", this.title);
 
