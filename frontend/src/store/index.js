@@ -143,26 +143,27 @@ const Store = new Vuex.Store({
     },
     removeFromCart({ commit }, index) {
       commit("remove_from_cart", index);
-    refreshLoggedInUser({ commit }) {
-      return new Promise((resolve, reject) => {
-        const token = Store.state.token;
-        AXIOS.get("/api/rest-auth/user/", {
-          headers: {
-            Authorization: `Token ${token}`
-          }
+    }
+  },
+  refreshLoggedInUser({ commit }) {
+    return new Promise((resolve, reject) => {
+      const token = Store.state.token;
+      AXIOS.get("/api/rest-auth/user/", {
+        headers: {
+          Authorization: `Token ${token}`
+        }
+      })
+        .then(resp => {
+          commit("set_user", resp.data);
+          resolve(resp);
         })
-          .then(resp => {
-            commit("set_user", resp.data);
-            resolve(resp);
-          })
-          .catch(e => {
-            // token is invalid
-            dispatch("logout");
-            reject(e);
-          });
-      });
-    },
-
+        .catch(e => {
+          // token is invalid
+          dispatch("logout");
+          reject(e);
+        });
+    });
+  },
   // enable strict mode (adds overhead!)
   // for dev mode only
   strict: process.env.DEV

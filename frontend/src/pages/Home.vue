@@ -31,6 +31,7 @@ export default {
   },
   created() {
     this.$axios
+      .get("api/items/")
       .then(response => {
         this.items = response.data;
       })
@@ -46,8 +47,9 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
-.container
-  padding: 20px
-  justify-content: center
+<style scoped>
+.container {
+  padding: 20px;
+  justify-content: center;
+}
 </style>
