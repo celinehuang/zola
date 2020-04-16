@@ -114,7 +114,7 @@ export default {
       formData.append("description", this.description);
       formData.append("mediatype", this.mediatype);
       formData.append("release_year", this.release_year);
-      formData.append("photo", this.photo);
+      formData.append("photo", this.newProfilePic);
       formData.append("username", this.id);
       formData.append("title", this.title);
 
