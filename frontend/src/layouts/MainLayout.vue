@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
-      <q-toolbar style="background-color: #445c3c">
+      <q-toolbar style="background-color: primary">
         <q-btn
           flat
           dense
@@ -100,9 +100,7 @@
 <script>
 export default {
   name: "MainLayout",
-
   components: {},
-
   data() {
     return {
       leftDrawerOpen: false,
@@ -110,6 +108,11 @@ export default {
       name: this.$store.state.currentUser.name,
       profile_pic: this.$store.state.currentUser.profile_pic
     };
+  },
+  computed: {
+    inCart() {
+      return this.$store.getters.inCart;
+    }
   },
   methods: {
     //   showNotif() {

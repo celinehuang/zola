@@ -29,11 +29,13 @@ const Store = new Vuex.Store({
     status: "",
     token: localStorage.getItem("token") || "",
     currentUser: {},
-    userExists: false
+    userExists: false,
+    inCart: []
   },
   getters: {
     isLoggedIn: state => !!state.token,
-    authStatus: state => state.status
+    authStatus: state => state.status,
+    inCart: state => state.inCart
   },
   mutations: {
     auth_request(state) {
@@ -57,6 +59,9 @@ const Store = new Vuex.Store({
     set_user(state, user) {
       state.currentUser = user;
       state.userExists = true;
+    },
+    add_to_cart(state, id) {
+      state.inCart.push(id);
     }
   },
   actions: {
@@ -129,6 +134,28 @@ const Store = new Vuex.Store({
         delete axios.defaults.headers.common["Authorization"];
         resolve();
       });
+    },
+    refreshLoggedInUser({ commit }) {
+      return new Promise((resolve, reject) => {
+        const token = Store.state.token;
+        AXIOS.get("/api/rest-auth/user/", {
+          headers: {
+            Authorization: `Token ${token}`
+          }
+        })
+          .then(resp => {
+            commit("set_user", resp.data);
+            resolve(resp);
+          })
+          .catch(e => {
+            // token is invalid
+            dispatch("logout");
+            reject(e);
+          });
+      });
+    },
+    addToCart({ commit }, id) {
+      commit("add_to_cart", id);
     }
   },
 

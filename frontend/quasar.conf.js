@@ -39,11 +39,11 @@ module.exports = function(ctx) {
       //            (not treeshaking Quasar; biggest bundle size; convenient)
       all: "auto",
 
-      components: ["QCard", "QCardSection", "QCardActions", "QBtn"],
+      components: ["QCard", "QCardSection", "QCardActions", "QBtn", "QImg", "QSeparator"],
       directives: [],
 
       // Quasar plugins
-      plugins: ["Notify"]
+      plugins: ["Notify","Dialog"]
     },
 
     // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie
