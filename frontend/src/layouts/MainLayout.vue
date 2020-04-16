@@ -23,12 +23,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-      content-class="bg-grey-2"
-    >
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-2">
       <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; ">
         <q-list padding>
           <q-separator />
@@ -69,16 +64,9 @@
         </q-list>
       </q-scroll-area>
 
-      <div
-        class="absolute-top"
-        style="background-color:#fcf9f2; height: 158px; padding: 25px;"
-      >
+      <div class="absolute-top" style="background-color:#fcf9f2; height: 158px; padding: 25px;">
         <!-- Show generic profile picture if user has no profile picture -->
-        <q-avatar
-          v-if="profile_pic === null"
-          size="70px"
-          class="q-mb-sm profile-picture"
-        >
+        <q-avatar v-if="profile_pic === null" size="70px" class="q-mb-sm profile-picture">
           <img src="../assets/avatar-person.svg" />
         </q-avatar>
         <!-- Show user's profile picture otherwise -->
@@ -144,7 +132,7 @@ export default {
 }
 .cart {
   display: inline-block;
-
+}
 #default-profile-picture {
   background-image: url("../assets/avatar-person.svg");
 }
