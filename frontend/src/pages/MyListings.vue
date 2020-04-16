@@ -7,7 +7,7 @@
             Add A New Item
           </q-toolbar-title>
         </q-toolbar>
-        <q-form @submit="createitem" class="q-gutter-lg q-ma-xl">
+        <q-form @submit="createitem" class="q-gutter-lg q-pa-xl">
           <q-input filled v-model="title" label="Title" />
           <q-input filled v-model="artist" label="Artist" />
           <q-select
