@@ -1,5 +1,4 @@
 <template>
-
   <q-card class="my-card">
     <q-img v-bind:src="photo" :ratio="1" height="240px" width="240px" >
       <div class="price-caption">{{ price | formatPrice }}</div>
@@ -14,7 +13,7 @@
       <div class="text-subtitle2">Price: {{ price | formatPrice }}</div>
       <q-btn flat color="primary" label="Edit" @click="showEditItemPopup" style="float:right;margin-left: -50%;margin-bottom : 35px;white-space: normal"/>
     </q-card-section>
-
+  
     <q-card-actions>
       <q-space />
       <q-btn
@@ -26,7 +25,7 @@
         @click="expanded = !expanded"
       />
     </q-card-actions>
-
+    <EditItemPopup @created="msgReceived()" />
     <q-slide-transition>
       <div v-show="expanded">
         <q-separator />
@@ -48,10 +47,12 @@ export default {
       expanded: false
     };
   },
+  components: {
+    EditItemPopup
+  },
   props: ["id", "description", "price", "photo", "title", "artist", "mediatype", "genre", "inventory_count", "release_year"],
   methods: {
     showEditItemPopup() {
-      console.log('nin here bitch')
       this.$q.dialog({
         component: EditItemPopup,
 
@@ -69,6 +70,9 @@ export default {
         release_year:this.release_year
       })
     },
+    msgReceived() {
+      console.log('here!!!!!!!!!!!!!!!!!')
+    }
   },
   filters: {
     formatPrice: function(value) {

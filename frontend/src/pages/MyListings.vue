@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="column thing" style="padding-bottom:20px;" >
-      <!-- <div class="text-h5 text-weight-bold text-left text-primary"> -->
       <div class="text-h5 text-weight-bold q-px-lg q-pt-lg">
         ADD A NEW ITEM
       </div>
@@ -135,8 +134,6 @@ export default {
   },
 
   created() {
-    console.log(this.id);
-    var self = this;
     this.$axios
       .get("http://localhost:8000/api/items/")
       .then(response => {
