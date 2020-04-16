@@ -1,7 +1,7 @@
 <template>
   <q-card class="my-card">
     <q-img v-bind:src="photo" :ratio="1">
-      <div>{{ price | formatPrice }}</div>
+      <div class="price-caption">{{ price | formatPrice }}</div>
     </q-img>
 
     <q-card-section>
@@ -74,5 +74,3 @@ export default {
   width: auto
   padding: 5px
 </style>
-
-
