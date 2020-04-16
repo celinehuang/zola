@@ -1,23 +1,24 @@
 <template>
   <div>
-    <div class="column thing">
-      <div class="text-h5 text-weight-bold text-center text-primary">
+    <div class="column thing" style="padding-bottom:20px;" >
+      <!-- <div class="text-h5 text-weight-bold text-left text-primary"> -->
+      <div class="text-h5 text-weight-bold q-px-lg q-pt-lg">
         ADD A NEW ITEM
       </div>
       <q-form
-        @submit="test"
+        @submit="createitem"
         class="q-gutter-md"
         style="padding-right:20px;padding-left:20px;"
       >
-        <q-input filled label="Title" />
-        <q-input filled label="Artist" />
-        <q-input filled label="Genre" />
-        <q-input filled label="Description" />
-        <q-input filled label="Media Type" />
-        <q-input filled stack-label type="date" label="Release Date" />
-        <q-input filled v-model.number="price" type="number" label="Price" />
-        <q-input filled v-model.number="inventory" type="number" label="Inventory" />
-        <q-input filled stack-label type="file" label="Cover Art" />
+        <q-input filled v-model="title" label="Title" />
+        <q-input filled v-model="artist" label="Artist" />
+        <q-input filled v-model="genre" label="Genre" />
+        <q-input filled v-model="description" label="Description" />
+        <q-input filled v-model="mediatype" label="Media Type" />
+        <q-input filled stack-label v-model="release_year" type="date" label="Release Date" />
+        <q-input filled v-model="price" v-model.number="price" type="number" label="Price" />
+        <q-input filled v-model="inventory_count" type="number" label="Inventory" />
+        <q-input filled stack-label v-model="photo" type="file" @change="onFileChanged" label="Cover Art" />
         <div style="text-align:center;">
           <q-btn
             label="Create listing"
@@ -28,8 +29,10 @@
       </q-form>
     </div>
 
+    <q-separator inset />
+
     <div
-      class="text-h5 text-weight-bold text-center text-primary"
+      class="text-h5 text-weight-bold q-px-lg q-pt-lg"
       style="padding-top:20px"
     >
       YOUR LISTINGS
@@ -60,10 +63,19 @@ import YourItem from "../components/YourItem.vue";
 export default {
   data() {
     return {
-      inventory: null,
+      inventory_count: null,
       price: null,
+      artist: null,
+      genre: null,
+      title: null,
+      description: null,
+      mediatype: null,
+      release_year: null,
+      photo: null,
+
       items: null,
       curr_users_items: null,
+
       username: this.$store.state.currentUser.username,
       name: this.$store.state.currentUser.name,
       shipping_addr: this.$store.state.currentUser.shipping_addr,
@@ -77,7 +89,60 @@ export default {
     YourItem
   },
   methods: {
-    test() {}
+    onFileChanged: function(event) {
+      //   console.log(event.target.files[0].type);
+      this.newProfilePic = event.target.files[0];
+      this.profile_pic = URL.createObjectURL(event.target.files[0]);
+    },
+    createitem() {
+      // let inventory_count = this.inventory_count;
+      // let price = this.price;
+      // let artist = this.artist;
+      // let genre = this.title;
+      // let description = this.description;
+      // let mediatype = this.mediatype;
+      // let release_year = this.release_year;
+      // let photo = this.newProfilePic;
+      // let title = this.title;
+      // //experiment with this one
+      // let username = this.id;
+      const formData = new FormData();
+      formData.append("inventory_count", this.inventory_count);
+      formData.append("price", this.price);
+      formData.append("artist", this.artist);
+      formData.append("genre", this.genre);
+      formData.append("description", this.description);
+      formData.append("mediatype", this.mediatype);
+      formData.append("release_year", this.release_year);
+      formData.append("photo", this.photo);
+      formData.append("username", this.id);
+      formData.append("title", this.title);
+
+      this.$axios
+        .post("/api/items/", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        .then(resp => {
+          this.$q.notify({
+            color: "green-4",
+            position: "top",
+            textColor: "white",
+            icon: "cloud_done",
+            message: "Successfully Created Listing"
+          });
+        })
+        .catch(err => {
+          this.$q.notify({
+            color: "red-4",
+            position: "top",
+            textColor: "white",
+            icon: "error",
+            message: "Something went wrong, please try again"
+          });
+        });
+    }
   },
 
   created() {
