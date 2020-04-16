@@ -31,7 +31,6 @@ export default {
   },
   created() {
     this.$axios
-      .get("api/items/")
       .then(response => {
         this.items = response.data;
       })
