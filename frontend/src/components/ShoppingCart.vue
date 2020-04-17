@@ -37,7 +37,7 @@
           </q-card-section>
 
           <q-card-actions align="right">
-            <q-btn flat color="primary">Checkout</q-btn>
+            <q-btn flat color="primary" to="/checkout">Checkout</q-btn>
           </q-card-actions>
         </div>
       </q-card>
