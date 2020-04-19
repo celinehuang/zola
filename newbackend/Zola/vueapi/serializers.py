@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Profile, Item, Payment
+from .models import Profile, Item, Payment, Message
 from rest_framework.authtoken.models import Token
 from rest_auth.registration.serializers import RegisterSerializer
 from rest_auth.serializers import LoginSerializer as RestAuthLoginSerializer
@@ -39,3 +39,8 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ('username', 'email','name','shipping_addr', 'profile_pic', 'id')
+
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = ['id', 'content']
