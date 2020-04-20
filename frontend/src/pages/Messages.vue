@@ -39,7 +39,8 @@ export default {
       currmessage: "",
       message: "",
       messages: [],
-      username: this.$store.state.currentUser.username
+      username: this.$store.state.currentUser.username,
+      profile_pic: this.$store.state.currentUser.profile_pic
     };
   },
   created() {
@@ -113,4 +114,3 @@ export default {
   box-shadow: none !important;
 }
 </style>
-<<<<<<< HEAD ======= >>>>>>> chat works!! but everyone is in same room
