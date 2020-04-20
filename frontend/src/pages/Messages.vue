@@ -5,13 +5,15 @@
         class="q-pa-md col-12 col-md-8 justify-center items-start q-gutter-md"
       >
         <q-card-section v-for="(message, index) in messages" :key="index">
-          <q-avatar size="50px" class="q-mx-sm">
-            <img src="../assets/avatar-person.svg" />
-          </q-avatar>
-          <span style="color:blue" v-if="username == message.user">{{
+          <span
+            class="text-bold"
+            style="color: #445c3c"
+            v-if="username == message.user"
+            >{{ message.user }}</span
+          >
+          <span class="text-bold" v-if="username != message.user">{{
             message.user
           }}</span>
-          <span v-if="username != message.user">{{ message.user }}</span>
           <div class="q-ma-sm">{{ message.content }}</div>
           <q-separator />
         </q-card-section>
@@ -37,7 +39,8 @@ export default {
       currmessage: "",
       message: "",
       messages: [],
-      username: this.$store.state.currentUser.username
+      username: this.$store.state.currentUser.username,
+      profile_pic: this.$store.state.currentUser.profile_pic
     };
   },
   created() {
@@ -101,7 +104,6 @@ export default {
           console.log(err.message);
         }
       };
-
     }
   }
 };
@@ -112,4 +114,3 @@ export default {
   box-shadow: none !important;
 }
 </style>
-
