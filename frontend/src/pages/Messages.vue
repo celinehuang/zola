@@ -1,35 +1,108 @@
 <template>
   <q-page>
-    <q-card class="remove-border">
-      <q-card-section @click="msgPage">
-        <q-avatar size="50px" class="q-mx-sm">
-          <img src="../assets/avatar-person.svg" />
-        </q-avatar>
-        <span>username</span>
-        <div class="q-ma-sm">message preview</div>
-        <q-separator />
-      </q-card-section>
-      <q-card-section>
-        <q-avatar size="50px" class="q-mx-sm">
-          <img src="../assets/avatar-person.svg" />
-        </q-avatar>
-        <span>username</span>
-        <div class="q-ma-sm">message preview</div>
-        <q-separator />
-      </q-card-section>
-    </q-card>
+    <div class="container">
+      <div
+        class="q-pa-md col-12 col-md-8 justify-center items-start q-gutter-md"
+      >
+        <q-card-section v-for="(message, index) in messages" :key="index">
+          <q-avatar size="50px" class="q-mx-sm">
+            <img src="../assets/avatar-person.svg" />
+          </q-avatar>
+          <span style="color:blue" v-if="username == message.user">{{
+            message.user
+          }}</span>
+          <span v-if="username != message.user">{{ message.user }}</span>
+          <div class="q-ma-sm">{{ message.content }}</div>
+          <q-separator />
+        </q-card-section>
+      </div>
+    </div>
+    <q-form @submit="send" class="q-gutter-lg q-pa-xl">
+      <q-input filled v-model="currmessage" />
+      <div style="text-align:center;">
+        <q-btn label="SEND MESSAGE" type="submit" style="background:#cad5db;" />
+      </div>
+    </q-form>
   </q-page>
 </template>
 
 <script>
+var ws = new WebSocket("ws://localhost:8000/ws/chat");
+
 export default {
   name: "AllMessages",
   components: {},
   data() {
-    return {};
+    return {
+      currmessage: "",
+      message: "",
+      messages: [],
+      username: this.$store.state.currentUser.username
+    };
+  },
+  created() {
+    this.initWS();
   },
   methods: {
-    msgPage() {}
+    send() {
+      var today = new Date();
+      var date_today =
+        today.getFullYear() +
+        "-" +
+        (today.getMonth() + 1) +
+        "-" +
+        today.getDate();
+      var msg = {
+        user: this.username,
+        content: this.currmessage,
+        date: date_today,
+        command: "new_message"
+      };
+      ws.send(JSON.stringify({ ...msg }));
+    },
+
+    initWS() {
+      ws.onmessage = e => {
+        const parsedData = JSON.parse(e.data);
+        console.log(parsedData);
+        onMessage(parsedData.messages, parsedData.command);
+      };
+
+      ws.onopen = () => {
+        console.log("WEBSOCKET OPEN BOIIII");
+        sendMessage({ command: "fetch_messages", username: this.username });
+      };
+
+      ws.onerror = e => {
+        console.log(e.message);
+      };
+
+      const onMessage = (message, command) => {
+        console.log("in onmessage");
+        if (command == "get_all_messages") {
+          this.messages = message.reverse();
+        }
+
+        if (command == "new_message") {
+          var m = this.messages;
+          //lol
+          this.messages = [...m, message];
+        }
+
+        console.log(this.messages, "xxxxxxxxxxxx");
+      };
+
+      const sendMessage = messageObject => {
+        console.log("in sendmessage", messageObject);
+
+        try {
+          ws.send(JSON.stringify({ ...messageObject }));
+        } catch (err) {
+          console.log(err.message);
+        }
+      };
+
+    }
   }
 };
 </script>
@@ -39,17 +112,4 @@ export default {
   box-shadow: none !important;
 }
 </style>
-      
-    
- <!-- v-for="msg in curr_users_msgs" v-bind:key="msg.id" -->
-        <!-- <YourMessage
-          :id="item.id"
-          :description="item.description"
-          :price="item.price"
-          :photo="item.photo"
-          :title="item.title"
-          :artist="item.artist"
-          :genre="item.genre"
-          :mediatype="item.mediatype"
-          :inventory_count="item.inventory_count"
-          :release_year="item.release_year"/>-->
+
