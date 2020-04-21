@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from rest_framework import viewsets, status, generics, mixins
+from rest_framework import viewsets, status, generics, mixins, filters
 from .serializers import ProfileSerializer, ItemSerializer, PaymentSerializer, UserSerializer, MessageSerializer
 from .models import Profile, Item, Payment, Message
 from rest_framework.response import Response
@@ -34,26 +34,12 @@ class ItemViewSet(viewsets.ModelViewSet,  mixins.UpdateModelMixin, TemplateRespo
     def put(self, request, *args, **kwargs):
         print('zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz')
         return self.partial_update(request, *args, **kwargs)
-    # @action(methods=['POST'], detail=True)
-    # def change_description(self, request, pk=None):
-    #     if 'description' in request.data:
-    #         item = Item.objects.get(id=pk)
-    #         newdesc = request.data['description']
-    #         try:    
-    #             item.description = newdesc
-    #             item.save()
-    #             serializer = ItemSerializer(item, many=False)
-    #             response={'message':'desc has been updated', 'result':serializer.data}
-    #             return Response(response, status=status.HTTP_200_OK)
 
-    #         except:
-    #             console.log('an error occured.')
-    #             response={'message':'error occured'}
-    #             return Response(response, status=status.HTTP_400_BAD_REQUEST)
-    #     else:
-    #         console.log('an error occured.')
-    #         response={'message':'error occured'}
-    #         return Response(response, status=status.HTTP_400_BAD_REQUEST)
+class ItemSearchView(generics.ListCreateAPIView):
+    search_fields = ['artist', 'title', 'description']
+    filter_backends = (filters.SearchFilter,)
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
 
 class PaymentViewSet(viewsets.ModelViewSet):
     queryset = Payment.objects.all()
