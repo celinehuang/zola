@@ -44,18 +44,18 @@
                 <q-toolbar-title>Payment</q-toolbar-title>
               </q-toolbar>
               <q-card-section>
-                <q-form class="q-gutter-md q-ma-md">
+                <q-form @submit="checkout" class="q-gutter-md q-ma-md">
                   <q-input filled v-model="name" label="Name" />
                   <q-input filled v-model="shipping_addr" label="Shipping Address" />
                   <q-input filled v-model="cardNum" label="Card Number" />
 
                   <q-input filled v-model="expDate" label="MM/YY" />
                   <q-input filled v-model="cvc" label="CVC" />
+                  <div>
+                    <q-btn flat color="primary" type="submit" label="Checkout" />
+                  </div>
                 </q-form>
               </q-card-section>
-              <q-card-actions align="right">
-                <q-btn flat color="primary" @click="checkout(inCart)" to="/home">Checkout</q-btn>
-              </q-card-actions>
             </q-card>
           </div>
         </div>
@@ -68,7 +68,14 @@
 export default {
   name: "checkout",
   data() {
-    return {};
+    return {
+      name: null,
+      shipping_addr: this.shipping_addr,
+      cardNum: this.cardNum,
+      expDate: this.expDate,
+      cvc: this.cvc,
+      userId: this.$store.state.currentUser.id
+    };
   },
   filters: {
     formatPrice: function(value) {
@@ -93,14 +100,38 @@ export default {
     emptyCart() {
       this.$store.dispatch("emptyCart");
     },
-    checkout(inCart) {
+    checkout() {
+      var inCart = this.inCart;
+      // var username = this.username;
       let requests = [];
 
       for (var i = 0; i < inCart.length; i++) {
-        var formData = new FormData();
-        formData.append("inventory_count", inCart[i].inventory_count - 1);
+        var itemData = new FormData();
+        var purchaseData = new FormData();
+        itemData.append("inventory_count", inCart[i].inventory_count - 1);
         this.$axios
-          .patch("/api/items/" + inCart[i].id + "/", formData)
+          .patch("/api/items/" + inCart[i].id + "/", itemData)
+          .catch(err => {
+            this.$q.notify({
+              color: "red-4",
+              position: "top",
+              textColor: "white",
+              icon: "error",
+              message: "Something went wrong, please try again"
+            });
+          });
+
+        purchaseData.append("username", this.userId);
+        purchaseData.append("iId", inCart[i].id);
+        purchaseData.append("shipping_addr", this.shipping_addr);
+        purchaseData.append("total_amt", inCart[i].price);
+
+        this.$axios
+          .post("/api/payments/", purchaseData, {
+            headers: {
+              "Content-Type": "multipart/form-data"
+            }
+          })
           .catch(err => {
             this.$q.notify({
               color: "red-4",
@@ -112,6 +143,7 @@ export default {
           });
       }
       this.emptyCart();
+      this.$router.push({ path: "/home" });
     }
   }
 };
