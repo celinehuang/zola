@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework import viewsets, status, generics, mixins
-from .serializers import ProfileSerializer, ItemSerializer, PaymentSerializer, UserSerializer
-from .models import Profile, Item, Payment
+from .serializers import ProfileSerializer, ItemSerializer, PaymentSerializer, UserSerializer, MessageSerializer
+from .models import Profile, Item, Payment, Message
 from rest_framework.response import Response
 from rest_framework.decorators import permission_classes, api_view, action, authentication_classes
 from rest_framework import permissions
@@ -58,3 +58,7 @@ class ItemViewSet(viewsets.ModelViewSet,  mixins.UpdateModelMixin, TemplateRespo
 class PaymentViewSet(viewsets.ModelViewSet):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
+
+class MessageViewSet(viewsets.ModelViewSet):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer

@@ -3,6 +3,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 class Profile(AbstractUser):
@@ -38,4 +39,20 @@ class Payment(models.Model):
     shipping_addr = models.CharField(max_length=200)
     total_amt = models.DecimalField(max_digits=5, decimal_places=2)
     pDate = models.DateField(auto_now_add=True)
+
+def validate_content_message(content):
+    if (content == "" or content == None or content.isspace()):
+        raise ValidationError(
+        'Invalid content',
+        code = 'invalid',
+        params = {
+            'content' : content
+        }
+    )   
+
+class Message(models.Model):
+    id = models.AutoField(primary_key = True)
+    date = models.DateTimeField(auto_now_add=True, blank = True)
+    content = models.TextField(validators=[validate_content_message])
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
