@@ -12,8 +12,8 @@
 
       <q-card-actions>
         <q-btn flat color="primary" icon="chat" />
-        <q-btn flat color="primary" icon="add_shopping_cart" @click="addToCart(id)" />
-        <q-btn flat color="primary" label="Buy Now" @click="addToCart(id)" to="/checkout" />
+        <q-btn flat color="primary" icon="add_shopping_cart" @click="addToCart(item)" />
+        <q-btn flat color="primary" label="Buy Now" @click="addToCart(item)" to="/checkout" />
 
         <q-space />
         <q-btn
@@ -45,10 +45,10 @@ export default {
       expanded: false
     };
   },
-  props: ["id", "description", "price", "photo", "title", "artist"],
+  props: ["item", "id", "description", "price", "photo", "title", "artist"],
   methods: {
-    addToCart(id) {
-      this.$store.dispatch("addToCart", id);
+    addToCart(item) {
+      this.$store.dispatch("addToCart", item);
     }
   },
   filters: {

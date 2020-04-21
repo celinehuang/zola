@@ -60,8 +60,8 @@ const Store = new Vuex.Store({
       state.currentUser = user;
       state.userExists = true;
     },
-    add_to_cart(state, id) {
-      state.inCart.push(id);
+    add_to_cart(state, item) {
+      state.inCart.push(item);
     },
     remove_from_cart(state, index) {
       state.inCart.splice(index, 1);
@@ -138,8 +138,8 @@ const Store = new Vuex.Store({
         resolve();
       });
     },
-    addToCart({ commit }, id) {
-      commit("add_to_cart", id);
+    addToCart({ commit }, item) {
+      commit("add_to_cart", item);
     },
     removeFromCart({ commit }, index) {
       commit("remove_from_cart", index);

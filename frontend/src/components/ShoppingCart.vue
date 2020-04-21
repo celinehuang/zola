@@ -11,7 +11,7 @@
 
         <q-card-section>
           <q-list style="min-width: 350px">
-            <q-item class="list-items" v-for="(item, index) in forSaleInCart" v-bind:key="item.id">
+            <q-item class="list-items" v-for="(item, index) in inCart" v-bind:key="item.id">
               <q-item-section>
                 <q-avatar rounded>
                   <img v-bind:src="item.photo" />
@@ -31,7 +31,7 @@
           </q-list>
         </q-card-section>
 
-        <div v-if="forSaleInCart.length > 0">
+        <div v-if="inCart.length > 0">
           <q-card-section align="right">
             <div class="text-subtitle">Total: {{totalPrice | formatPrice}}</div>
           </q-card-section>
@@ -50,8 +50,7 @@ export default {
   name: "shoppingCart",
   data() {
     return {
-      cartExpanded: false,
-      forSale: null
+      cartExpanded: false
     };
   },
   filters: {
@@ -63,15 +62,8 @@ export default {
     inCart() {
       return this.$store.getters.inCart;
     },
-    forSaleInCart() {
-      return this.$store.getters.inCart.map(itemId => {
-        return this.forSale.find(itemForSale => {
-          return itemId === itemForSale.id;
-        });
-      });
-    },
     totalPrice() {
-      return this.forSaleInCart.reduce(
+      return this.inCart.reduce(
         (acc, cur) => parseFloat(acc) + parseFloat(cur.price),
         0
       );
@@ -81,21 +73,6 @@ export default {
     removeFromCart(index) {
       this.$store.dispatch("removeFromCart", index);
     }
-  },
-  created() {
-    this.$axios
-      .get("http://localhost:8000/api/items/")
-      .then(response => {
-        this.forSale = response.data;
-      })
-      .catch(() => {
-        this.$q.notify({
-          color: "negative",
-          position: "top",
-          message: "Loading failed",
-          icon: "report_problem"
-        });
-      });
   }
 };
 </script>

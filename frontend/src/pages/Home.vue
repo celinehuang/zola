@@ -5,6 +5,7 @@
         style="margin: 10px"
         v-for="item in items"
         v-bind:key="item.id"
+        :item="item"
         :artist="item.artist"
         :title="item.title"
         :id="item.id"
