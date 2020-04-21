@@ -13,33 +13,16 @@
       </template>
     </q-input>
 
-    <q-btn-dropdown flat class="float-right q-ma-md" label="Sort By">
-      <q-list>
-        <q-item clickable v-close-popup @click="onLowestPriceClick">
-          <q-item-section>
-            <q-item-label>Lowest Price</q-item-label>
-          </q-item-section>
-        </q-item>
-
-        <q-item clickable v-close-popup @click="onHighestPriceClick">
-          <q-item-section>
-            <q-item-label>Highest Price</q-item-label>
-          </q-item-section>
-        </q-item>
-
-        <q-item clickable v-close-popup @click="onLatestClick">
-          <q-item-section>
-            <q-item-label>Latest Release Date</q-item-label>
-          </q-item-section>
-        </q-item>
-
-        <q-item clickable v-close-popup @click="onOldestClick">
-          <q-item-section>
-            <q-item-label>Oldest Release Date</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
-    </q-btn-dropdown>
+    <q-select
+      borderless
+      v-model="sortBy"
+      :options="options"
+      type="text"
+      label="Sort By:"
+      @input="findSort"
+      style="width:15%"
+      class="float-right q-mx-lg"
+    />
 
     <div class="container">
       <div class="q-pa-md row justify-center items-start q-gutter-md">
@@ -66,14 +49,34 @@ export default {
   data() {
     return {
       items: null,
-      text: null
+      text: null,
+      sortBy: null,
+      options: [
+        "Lowest Price",
+        "Highest Price",
+        "Latest Release Date",
+        "Oldest Release Date"
+      ]
     };
   },
   components: {
     Item
   },
   methods: {
+    findSort: function(event) {
+      console.log(this.sortBy);
+      if (this.sortBy == "Lowest Price") {
+        this.onLowestPriceClick();
+      } else if (this.sortBy == "Highest Price") {
+        this.onHighestPriceClick();
+      } else if (this.sortBy == "Latest Release Date") {
+        this.onLatestClick();
+      } else {
+        this.onOldestClick();
+      }
+    },
     onLowestPriceClick() {
+      this.sortBy = "Lowest Price";
       this.items.sort(function(x, y) {
         if (x.price < y.price) {
           return -1;
