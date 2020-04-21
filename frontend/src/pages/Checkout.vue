@@ -90,6 +90,9 @@ export default {
     removeFromCart(index) {
       this.$store.dispatch("removeFromCart", index);
     },
+    emptyCart() {
+      this.$store.dispatch("emptyCart");
+    },
     checkout(inCart) {
       let requests = [];
 
@@ -108,28 +111,7 @@ export default {
             });
           });
       }
-
-      // for (var i = 0; i < inCart.length; i++) {
-      //   var formData = new FormData();
-      //   formData.append("inventory_count", inCart[i].inventory_count - 1);
-      //   var request = this.$axios.patch(
-      //     "/api/partialupdate/" + inCart[i].id + "/",
-      //     formData
-      //   );
-      //   requests.push(request, {
-      //     headers: { "Content-Type": "multipart/form-data" }
-      //   });
-      // }
-
-      // this.$axios.all(requests).catch(err => {
-      //   this.$q.notify({
-      //     color: "red-4",
-      //     position: "top",
-      //     textColor: "white",
-      //     icon: "error",
-      //     message: "Something went wrong, please try again"
-      //   });
-      // });
+      this.emptyCart();
     }
   }
 };

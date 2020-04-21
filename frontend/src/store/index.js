@@ -65,6 +65,9 @@ const Store = new Vuex.Store({
     },
     remove_from_cart(state, index) {
       state.inCart.splice(index, 1);
+    },
+    empty_cart(state) {
+      state.inCart = [];
     }
   },
   actions: {
@@ -143,6 +146,9 @@ const Store = new Vuex.Store({
     },
     removeFromCart({ commit }, index) {
       commit("remove_from_cart", index);
+    },
+    emptyCart({ commit }) {
+      commit("empty_cart");
     }
   },
   refreshLoggedInUser({ commit }) {
