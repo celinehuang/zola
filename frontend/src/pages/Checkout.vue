@@ -110,7 +110,11 @@ export default {
         var purchaseData = new FormData();
         itemData.append("inventory_count", inCart[i].inventory_count - 1);
         this.$axios
-          .patch("/api/items/" + inCart[i].id + "/", itemData)
+          .patch("/api/items/" + inCart[i].id + "/", itemData, {
+            headers: {
+              "Content-Type": "multipart/form-data"
+            }
+          })
           .catch(err => {
             this.$q.notify({
               color: "red-4",
