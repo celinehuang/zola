@@ -11,7 +11,7 @@
       </q-card-section>
 
       <q-card-actions>
-        <q-btn flat color="primary" icon="chat_bubble_outline" />
+        <q-btn flat color="primary" icon="chat" />
         <q-btn flat color="primary" icon="add_shopping_cart" @click="addToCart(id)" />
         <q-btn flat color="primary" label="Buy Now" @click="addToCart(id)" to="/checkout" />
 
