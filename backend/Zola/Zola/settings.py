@@ -47,7 +47,20 @@ INSTALLED_APPS = [
     "rest_auth.registration",
     "allauth.socialaccount",
     "corsheaders",
+    "channels",
 ]
+
+ASGI_APPLICATION = "Zola.routing.application"
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND' : 'channels_redis.core.RedisChannelLayer',
+        'CONFIG' : {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
+
 REST_AUTH_REGISTER_SERIALIZERS = {
     "REGISTER_SERIALIZER": "vueapi.serializers.RegisterProfileSerializer",
 }

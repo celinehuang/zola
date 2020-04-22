@@ -4,8 +4,8 @@
       <div class="price-caption">{{ price | formatPrice }}</div>
     </q-img>
 
-    <q-card-section class>
-      <div class="text-h6">Title: {{ title }}</div>
+    <q-card-section class="">
+      <div class="text-h6">{{ title }}</div>
       <div class="text-subtitle2">Artist: {{ artist }}</div>
       <div class="text-subtitle2">Media Type: {{ mediatype }}</div>
       <div class="text-subtitle2">Genre: {{ genre }}</div>

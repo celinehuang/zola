@@ -14,7 +14,6 @@
         <q-btn flat color="primary" icon="chat" />
         <q-btn flat color="primary" icon="add_shopping_cart" @click="addToCart(item)" />
         <q-btn flat color="primary" label="Buy Now" @click="addToCart(item)" to="/checkout" />
-
         <q-space />
         <q-btn
           color="primary"
@@ -29,7 +28,9 @@
       <q-slide-transition>
         <div v-show="expanded">
           <q-separator />
-          <q-card-section class="text-subitle2">{{description}}</q-card-section>
+          <q-card-section class="text-subitle2">
+            {{ description }}
+          </q-card-section>
         </div>
       </q-slide-transition>
     </q-card>
