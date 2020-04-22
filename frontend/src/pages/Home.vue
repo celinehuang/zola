@@ -1,28 +1,40 @@
 <template>
-  <div>
-    <q-input
-      rounded
-      outlined
-      v-model="text"
-      label="Search"
-      maxlength="12"
-      class="q-pa-lg q-mx-sm q-mt-sm"
-    >
-      <template v-slot:append>
-        <q-icon name="search" />
-      </template>
-    </q-input>
-
+  <q-layout>
+    <form @submit.prevent="onSearch" class="q-pa-md">
+      <q-input
+        rounded
+        outlined
+        v-model="text"
+        label="Search"
+        class="q-pa-lg q-mx-sm q-mt-sm"
+      >
+        <template v-slot:append>
+          <q-btn name="cancel" @click="clearSearch" class="cursor-pointer" />
+        </template>
+        <template v-slot:append>
+          <q-icon name="search" />
+        </template>
+      </q-input>
+    </form>
     <q-select
       borderless
       v-model="sortBy"
       :options="options"
+      clearable
       type="text"
       label="Sort By:"
       @input="findSort"
       style="width:15%"
       class="float-right q-mx-lg"
-    />
+    >
+      <template v-if="clearData" v-slot:append>
+        <q-icon
+          name="cancel"
+          @click.stop="clearData = null"
+          class="cursor-pointer"
+        />
+      </template>
+    </q-select>
 
     <div class="container">
       <div class="q-pa-md row justify-center items-start q-gutter-md">
@@ -39,7 +51,7 @@
         />
       </div>
     </div>
-  </div>
+  </q-layout>
 </template>
 
 <script>
@@ -48,6 +60,7 @@ import Item from "../components/Item.vue";
 export default {
   data() {
     return {
+      clearData: null,
       items: null,
       text: null,
       sortBy: null,
@@ -131,6 +144,30 @@ export default {
       this.items.forEach(item => {
         console.log(item.release_year);
       });
+    },
+    onSearch() {
+      console.log("helllloooo");
+      var searchText = this.text;
+      this.$axios
+        .get("/api/itemsearch/", {
+          params: {
+            search: searchText
+          }
+        })
+        .then(resp => {
+          console.log("search is called");
+          this.items = resp.data;
+          console.log(resp.data);
+        })
+        .catch(err => {
+          this.$q.notify({
+            color: "red-4",
+            position: "top",
+            textColor: "white",
+            icon: "error",
+            message: "Something went wrong, please try again"
+          });
+        });
     }
   },
   created() {
