@@ -121,12 +121,6 @@ export default {
     }
   },
   methods: {
-    //   showNotif() {
-    //     this.$q.notify({
-    //       message: "Added to basket",
-    //       icon: "add"
-    //     });
-    //   }
     logout: function() {
       this.$store.dispatch("logout").then(this.$router.push({ path: "login" }));
     }
