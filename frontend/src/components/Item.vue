@@ -11,8 +11,13 @@
       </q-card-section>
 
       <q-card-actions>
-        <q-btn flat color="primary" icon="chat" />
-        <q-btn flat color="primary" icon="add_shopping_cart" @click="addToCart(id)" />
+        <q-btn flat color="primary" icon="chat" to="/messages" />
+        <q-btn
+          flat
+          color="primary"
+          icon="add_shopping_cart"
+          @click="addToCart(id)"
+        />
         <q-btn flat color="primary" label="Buy Now" />
         <q-space />
         <q-btn
@@ -29,9 +34,7 @@
         <div v-show="expanded">
           <q-separator />
           <q-card-section class="text-subitle2">
-            {{
-            description
-            }}
+            {{ description }}
           </q-card-section>
         </div>
       </q-slide-transition>
