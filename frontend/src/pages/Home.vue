@@ -1,13 +1,7 @@
 <template>
   <q-layout>
     <form @submit.prevent="onSearch" class="q-pa-md">
-      <q-input
-        rounded
-        outlined
-        v-model="text"
-        label="Search"
-        class="q-pa-lg q-mx-sm q-mt-sm"
-      >
+      <q-input rounded outlined v-model="text" label="Search" class="q-pa-lg q-mx-sm q-mt-sm">
         <template v-slot:append>
           <q-btn name="cancel" @click="clearSearch" class="cursor-pointer" />
         </template>
@@ -29,11 +23,7 @@
       class="float-right q-mx-lg"
     >
       <template v-if="clearData" v-slot:append>
-        <q-icon
-          name="cancel"
-          @click.stop="clearData = null"
-          class="cursor-pointer"
-        />
+        <q-icon name="cancel" @click.stop="clearData = null" class="cursor-pointer" />
       </template>
     </q-select>
 
@@ -49,6 +39,7 @@
           :description="item.description"
           :price="item.price"
           :photo="item.photo"
+          :item="item"
         />
       </div>
     </div>
@@ -101,7 +92,7 @@ export default {
           });
         });
     },
-        findSort: function(event) {
+    findSort: function(event) {
       console.log(this.sortBy);
       if (this.sortBy == "Lowest Price") {
         this.onLowestPriceClick();
