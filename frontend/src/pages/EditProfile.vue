@@ -59,7 +59,6 @@ export default {
   },
   methods: {
     onFileChanged: function(event) {
-      //   console.log(event.target.files[0].type);
       this.newProfilePic = event.target.files[0];
       this.profile_pic = URL.createObjectURL(event.target.files[0]);
       this.picChanged = true;

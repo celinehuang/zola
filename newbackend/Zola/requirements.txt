@@ -6,4 +6,4 @@ django-rest-auth
 django-cors-headers
 channels
 channels_redis
-django.tesst
+django.test
