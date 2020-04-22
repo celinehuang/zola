@@ -5,7 +5,7 @@ import axios from "axios";
 Vue.use(Vuex);
 
 var config = require("../config");
-
+Vue.config.silent = true;
 // Axios config
 const frontendUrl = config.build.host + ":" + config.build.port;
 console.log("frontend port: " + config.build.port);

@@ -37,6 +37,7 @@ export default {
             if (data[key].inventory_count > 0) {
               this.items[key] = data[key];
             }
+            this.items[key];
           });
         })
         .catch(() => {

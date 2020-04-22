@@ -3,7 +3,7 @@
     <q-page-container>
       <q-page>
         <div class="q-pa-md row justify-center items-start q-gutter-md">
-          <div class="col-md-4 col-sm-7 col-xs-12">
+          <div class="col-grow col-sm-7 col-xs-12">
             <q-card>
               <q-toolbar style="background-color:primary">
                 <q-toolbar-title>Checkout</q-toolbar-title>
@@ -38,19 +38,49 @@
               </div>
             </q-card>
           </div>
-          <div class="col-md-5 col-sm-6 col-xs-12">
+          <div class="col-grow col-sm-6 col-xs-12">
             <q-card class="payment">
               <q-toolbar style="background-color:primary">
                 <q-toolbar-title>Payment</q-toolbar-title>
               </q-toolbar>
               <q-card-section>
                 <q-form @submit="checkout" class="q-gutter-md q-ma-md">
-                  <q-input filled v-model="name" label="Name" />
-                  <q-input filled v-model="shipping_addr" label="Shipping Address" />
-                  <q-input filled v-model="cardNum" label="Card Number" />
+                  <q-input
+                    filled
+                    v-model="name"
+                    label="Name"
+                    lazy-rules
+                    :rules="[val => !!val || 'Field is required']"
+                  />
+                  <q-input
+                    filled
+                    v-model="shipping_addr"
+                    label="Shipping Address"
+                    lazy-rules
+                    :rules="[val => !!val || 'Field is required']"
+                  />
+                  <q-input
+                    filled
+                    v-model="cardNum"
+                    label="Card Number"
+                    lazy-rules
+                    :rules="[val => !!val || 'Field is required']"
+                  />
 
-                  <q-input filled v-model="expDate" label="MM/YY" />
-                  <q-input filled v-model="cvc" label="CVC" />
+                  <q-input
+                    filled
+                    v-model="expDate"
+                    label="MM/YY"
+                    lazy-rules
+                    :rules="[val => !!val || 'Field is required']"
+                  />
+                  <q-input
+                    filled
+                    v-model="cvc"
+                    label="CVC"
+                    lazy-rules
+                    :rules="[val => !!val || 'Field is required']"
+                  />
                   <div>
                     <q-btn flat color="primary" type="submit" label="Checkout" />
                   </div>
@@ -100,17 +130,35 @@ export default {
     emptyCart() {
       this.$store.dispatch("emptyCart");
     },
+    getUniqueIds(inCart) {
+      var uniqueIds = {};
+
+      Object.keys(inCart).forEach(key => {
+        var id = inCart[key].id;
+        var inventory_count = inCart[key].inventory_count;
+        if (!(id in uniqueIds)) {
+          uniqueIds[id] = {};
+          uniqueIds[id].numInCart = 1;
+          uniqueIds[id].inventory_count = inventory_count;
+        } else if (id in uniqueIds) {
+          uniqueIds[id].numInCart += 1;
+        }
+      });
+      return uniqueIds;
+    },
     checkout() {
       var inCart = this.inCart;
-      // var username = this.username;
-      let requests = [];
+      var uniqueIds = this.getUniqueIds(inCart);
 
-      for (var i = 0; i < inCart.length; i++) {
+      Object.keys(uniqueIds).forEach(id => {
         var itemData = new FormData();
-        var purchaseData = new FormData();
-        itemData.append("inventory_count", inCart[i].inventory_count - 1);
+        itemData.append(
+          "inventory_count",
+          uniqueIds[id].inventory_count - uniqueIds[id].numInCart
+        );
+
         this.$axios
-          .patch("/api/items/" + inCart[i].id + "/", itemData, {
+          .patch("/api/items/" + id + "/", itemData, {
             headers: {
               "Content-Type": "multipart/form-data"
             }
@@ -124,6 +172,10 @@ export default {
               message: "Something went wrong, please try again"
             });
           });
+      });
+
+      for (var i = 0; i < inCart.length; i++) {
+        var purchaseData = new FormData();
 
         purchaseData.append("username", this.userId);
         purchaseData.append("iId", inCart[i].id);
