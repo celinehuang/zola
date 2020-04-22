@@ -42,6 +42,12 @@ const routes = [
     children: [
       { path: "", component: () => import("pages/ChangePassword.vue") }
     ]
+  },
+  {
+    path: "/checkout",
+    component: () => import("layouts/MainLayout.vue"),
+    meta: { requiresAuth: true },
+    children: [{ path: "", component: () => import("pages/Checkout.vue") }]
   }
 ];
 

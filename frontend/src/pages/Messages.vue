@@ -72,7 +72,6 @@ export default {
       };
 
       ws.onopen = () => {
-        console.log("WEBSOCKET OPEN BOIIII");
         sendMessage({ command: "fetch_messages", username: this.username });
       };
 
@@ -88,11 +87,8 @@ export default {
 
         if (command == "new_message") {
           var m = this.messages;
-          //lol
           this.messages = [...m, message];
         }
-
-        console.log(this.messages, "xxxxxxxxxxxx");
       };
 
       const sendMessage = messageObject => {

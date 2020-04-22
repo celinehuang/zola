@@ -9,44 +9,32 @@
         <div class="text-h6">{{ title }}</div>
         <div class="text-subtitle2">{{ artist }}</div>
       </q-card-section>
-
-      <q-card-actions>
-        <q-btn flat color="primary" icon="chat" />
-        <q-btn flat color="primary" icon="add_shopping_cart" @click="addToCart(item)" />
-        <q-btn flat color="primary" label="Buy Now" @click="addToCart(item)" to="/checkout" />
-        <q-space />
-        <q-btn
-          color="primary"
-          round
-          flat
-          dense
-          :icon="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
-          @click="expanded = !expanded"
-        />
-      </q-card-actions>
-
-      <q-slide-transition>
-        <div v-show="expanded">
-          <q-separator />
-          <q-card-section class="text-subitle2">
-            {{ description }}
-          </q-card-section>
-        </div>
-      </q-slide-transition>
+      <q-card-section>
+        <div class="text-subtitle2">Order date: {{ pDate }}</div>
+      </q-card-section>
     </q-card>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Item",
+  name: "HistoryItem",
 
   data() {
     return {
       expanded: false
     };
   },
-  props: ["item", "id", "description", "price", "photo", "title", "artist"],
+  props: [
+    "item",
+    "id",
+    "description",
+    "price",
+    "photo",
+    "title",
+    "artist",
+    "pDate"
+  ],
   methods: {
     addToCart(item) {
       this.$store.dispatch("addToCart", item);

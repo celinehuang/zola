@@ -18,9 +18,9 @@
     </form>
     <q-select
       borderless
+      clearable
       v-model="sortBy"
       :options="options"
-      clearable
       type="text"
       label="Sort By:"
       @input="findSort"
@@ -57,6 +57,8 @@
 <script>
 import Item from "../components/Item.vue";
 
+var ws = new WebSocket("ws://localhost:8000/ws/chat");
+
 export default {
   data() {
     return {
@@ -69,13 +71,34 @@ export default {
         "Highest Price",
         "Latest Release Date",
         "Oldest Release Date"
-      ]
+      ],
+      username: this.$store.state.currentUser.username
     };
   },
-  components: {
-    Item
-  },
+
   methods: {
+    getItems() {
+      this.$axios
+        .get("api/items/")
+        .then(response => {
+          const data = response.data;
+          this.items = {};
+          Object.keys(data).forEach(key => {
+            if (data[key].inventory_count > 0) {
+              this.items[key] = data[key];
+            }
+            this.items[key];
+          });
+        })
+        .catch(() => {
+          this.$q.notify({
+            color: "negative",
+            position: "top",
+            message: "Loading failed",
+            icon: "report_problem"
+          });
+        });
+    },
     findSort: function(event) {
       console.log(this.sortBy);
       if (this.sortBy == "Lowest Price") {
@@ -170,20 +193,11 @@ export default {
         });
     }
   },
+  components: {
+    Item
+  },
   created() {
-    this.$axios
-      .get("api/items/")
-      .then(response => {
-        this.items = response.data;
-      })
-      .catch(() => {
-        this.$q.notify({
-          color: "negative",
-          position: "top",
-          message: "Loading failed",
-          icon: "report_problem"
-        });
-      });
+    this.getItems();
   }
 };
 </script>
