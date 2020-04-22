@@ -26,24 +26,34 @@ export default {
       items: null
     };
   },
-  methods: {},
+  methods: {
+    getItems() {
+      this.$axios
+        .get("api/items/")
+        .then(response => {
+          const data = response.data;
+          this.items = {};
+          Object.keys(data).forEach(key => {
+            if (data[key].inventory_count > 0) {
+              this.items[key] = data[key];
+            }
+          });
+        })
+        .catch(() => {
+          this.$q.notify({
+            color: "negative",
+            position: "top",
+            message: "Loading failed",
+            icon: "report_problem"
+          });
+        });
+    }
+  },
   components: {
     Item
   },
   created() {
-    this.$axios
-      .get("api/items/")
-      .then(response => {
-        this.items = response.data;
-      })
-      .catch(() => {
-        this.$q.notify({
-          color: "negative",
-          position: "top",
-          message: "Loading failed",
-          icon: "report_problem"
-        });
-      });
+    this.getItems();
   }
 };
 </script>
