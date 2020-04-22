@@ -10,7 +10,6 @@
         </template>
       </q-input>
     </form>
-
     <q-select
       borderless
       clearable
@@ -55,7 +54,6 @@ export default {
   data() {
     return {
       clearData: null,
-      // clearSearch: null,
       items: null,
       text: null,
       sortBy: null,
@@ -160,25 +158,6 @@ export default {
       this.items.forEach(item => {
         console.log(item.release_year);
       });
-    },
-    clearSearch() {
-      console.log("yes it worked");
-      this.$axios
-        .get("/api/itemsearch/")
-        .then(resp => {
-          console.log("clearsearch is called");
-          this.items = resp.data;
-          console.log(resp.data);
-        })
-        .catch(err => {
-          this.$q.notify({
-            color: "red-4",
-            position: "top",
-            textColor: "white",
-            icon: "error",
-            message: "Something went wrong, please try again"
-          });
-        });
     },
     onSearch() {
       console.log("helllloooo");
