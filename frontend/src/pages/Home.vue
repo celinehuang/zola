@@ -52,10 +52,7 @@
         />
       </div>
     </div>
-    <div>
-      <q-btn flat color="primary" icon="add_shopping_cart" @click="test()" />
-      <q-btn flat color="secondary" icon="add_shopping_cart" @click="test2()" />
-    </div>
+  </q-layout>
 </template>
 
 <script>
