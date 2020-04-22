@@ -1,20 +1,25 @@
 <template>
-  <div>
-    <q-input
-      rounded
-      outlined
-      v-model="text"
-      label="Search"
-      maxlength="12"
-      class="q-pa-lg q-mx-sm q-mt-sm"
-    >
-      <template v-slot:append>
-        <q-icon name="search" />
-      </template>
-    </q-input>
+  <q-layout>
+    <form @submit.prevent="onSearch" class="q-pa-md">
+      <q-input
+        rounded
+        outlined
+        v-model="text"
+        label="Search"
+        class="q-pa-lg q-mx-sm q-mt-sm"
+      >
+        <template v-slot:append>
+          <q-btn name="cancel" @click="clearSearch" class="cursor-pointer" />
+        </template>
+        <template v-slot:append>
+          <q-icon name="search" />
+        </template>
+      </q-input>
+    </form>
 
     <q-select
       borderless
+      clearable
       v-model="sortBy"
       :options="options"
       type="text"
@@ -22,7 +27,15 @@
       @input="findSort"
       style="width:15%"
       class="float-right q-mx-lg"
-    />
+    >
+      <template v-if="clearData" v-slot:append>
+        <q-icon
+          name="cancel"
+          @click.stop="clearData = null"
+          class="cursor-pointer"
+        />
+      </template>
+    </q-select>
 
     <div class="container">
       <div class="q-pa-md row justify-center items-start q-gutter-md">
@@ -43,7 +56,6 @@
       <q-btn flat color="primary" icon="add_shopping_cart" @click="test()" />
       <q-btn flat color="secondary" icon="add_shopping_cart" @click="test2()" />
     </div>
-  </div>
 </template>
 
 <script>
@@ -54,6 +66,8 @@ var ws = new WebSocket("ws://localhost:8000/ws/chat");
 export default {
   data() {
     return {
+      clearData: null,
+      // clearSearch: null,
       items: null,
       text: null,
       sortBy: null,
@@ -241,6 +255,49 @@ export default {
       this.items.forEach(item => {
         console.log(item.release_year);
       });
+    },
+    clearSearch() {
+      console.log("yes it worked");
+      this.$axios
+        .get("/api/itemsearch/")
+        .then(resp => {
+          console.log("clearsearch is called");
+          this.items = resp.data;
+          console.log(resp.data);
+        })
+        .catch(err => {
+          this.$q.notify({
+            color: "red-4",
+            position: "top",
+            textColor: "white",
+            icon: "error",
+            message: "Something went wrong, please try again"
+          });
+        });
+    },
+    onSearch() {
+      console.log("helllloooo");
+      var searchText = this.text;
+      this.$axios
+        .get("/api/itemsearch/", {
+          params: {
+            search: searchText
+          }
+        })
+        .then(resp => {
+          console.log("search is called");
+          this.items = resp.data;
+          console.log(resp.data);
+        })
+        .catch(err => {
+          this.$q.notify({
+            color: "red-4",
+            position: "top",
+            textColor: "white",
+            icon: "error",
+            message: "Something went wrong, please try again"
+          });
+        });
     }
   },
   created() {
