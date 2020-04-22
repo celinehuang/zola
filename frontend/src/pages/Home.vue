@@ -73,7 +73,7 @@ export default {
         .get("api/items/")
         .then(response => {
           const data = response.data;
-          this.items = {};
+          this.items = [];
           Object.keys(data).forEach(key => {
             if (data[key].inventory_count > 0) {
               this.items[key] = data[key];

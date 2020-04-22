@@ -34,7 +34,6 @@
     </q-card>
   </div>
 </template>
-
 <script>
 export default {
   name: "Item",
@@ -59,8 +58,10 @@ export default {
 </script>
 <style lang="sass" scoped>
 .my-card
-  width: 100%
-  max-width: 400px
+  width: 240px
+  height: 400px
+  overflow: scroll
+  overflow-x: scroll
 
 .price-caption
   position: absolute

@@ -4,7 +4,7 @@
       <div class="price-caption">{{ price | formatPrice }}</div>
     </q-img>
 
-    <q-card-section class="">
+    <q-card-section class>
       <div class="text-h6">{{ title }}</div>
       <div class="text-subtitle2">Artist: {{ artist }}</div>
       <div class="text-subtitle2">Media Type: {{ mediatype }}</div>
@@ -104,6 +104,7 @@ export default {
   width: 240px;
   height: 450px;
   overflow: scroll;
+  overflow-x: scroll;
 }
 .price-caption {
   position: absolute;

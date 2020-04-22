@@ -53,11 +53,7 @@
                   />
 
                   <div>
-                    <q-btn
-                      label="Log In"
-                      type="submit"
-                      style="background:#cad5db;"
-                    />
+                    <q-btn label="Log In" type="submit" style="background:#cad5db;" />
                   </div>
                 </q-form>
               </q-tab-panel>
@@ -137,11 +133,7 @@
                   />
 
                   <div>
-                    <q-btn
-                      label="Sign Up"
-                      type="submit"
-                      style="background:#cad5db;"
-                    />
+                    <q-btn label="Sign Up" type="submit" style="background:#cad5db;" />
                   </div>
                 </q-form>
               </q-tab-panel>
@@ -217,7 +209,7 @@ export default {
             icon: "cloud_done",
             message: "Registered successfully"
           });
-          this.$router.push({ path: "/home" });
+          this.$router.push({ path: "/home" }).catch(() => {});
         })
         .catch(_err => {
           this.$q.notify({
