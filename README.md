@@ -1,3 +1,8 @@
+# Group Members:
+Celine Huang 260707291
+Jim Prescott 260738187
+Jacek Dziewonski 260731690
+
 # Buy& Sell Marketplace for Music
 
 ## Backend Set Up
