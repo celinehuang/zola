@@ -25,6 +25,14 @@ Once the environment is activated, install requirements:
 pip install -r requirements.txt
 ```
 
+The project comes without a database or any migrations.
+To set up the database before the first time you run it:
+
+```
+python manage.py makemigrations vueapi
+python manage.py migrate
+```
+
 To run the Django backend:
 ```
 python manage.py runserver
@@ -63,4 +71,14 @@ To install dependencies, run `npm install` or `yarn install` in the `frontend` f
 ```
 quasar dev
 ```
+
+## Registering a user
+
+To access the site, you must make an account.
+Certain things, like a password that is too simple, or an incorrect email format, will make account registration fail.
+We recommend you use the following to register if you're having trouble registering and logging into the site:
+
+Username : johndoe
+Password : testzolapass123
+email : jdoe@gmail.com
 
