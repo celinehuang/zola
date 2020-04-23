@@ -9,18 +9,18 @@ python3 -m venv env
 
 source env/bin/activate
 ```
+CD into the correct directory:
 
+```
+cd newbackend/Zola
+```
 Once the environment is activated, install requirements:
 
 ```
 pip install -r requirements.txt
 ```
-
-CD into the correct directory:
-
-```
-cd backend/mysite
-```
+On windows, download a recent stable executable of Redis, and run redis-server.exe.
+https://github.com/microsoftarchive/redis/releases
 
 To run the Django backend:
 ```
