@@ -7,6 +7,9 @@ Jacek Dziewonski 260731690
 
 ## Backend Set Up
 
+IMPORTANT:
+Please note that the correct backend folder is named "newbackend" !!!!!!
+
 Set up a Python virtual environment for the backend:
 
 ```
