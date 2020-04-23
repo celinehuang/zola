@@ -18,6 +18,13 @@
         @click="showEditItemPopup = true"
         class="float-right"
       />
+      <q-btn
+        flat
+        color="red"
+        label="Delete"
+        @click="del"
+        class="float-right"
+      />
     </q-card-section>
 
     <q-card-actions>
@@ -89,6 +96,34 @@ export default {
       this.showEditItemPopup = false;
 
       this.$emit("item-updated");
+    },
+    del() {
+            this.$axios
+        .delete("/api/items/" + this.id + "/", {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        .then(resp => {
+          this.$q.notify({
+            color: "green-4",
+            position: "top",
+            textColor: "white",
+            icon: "cloud_done",
+            message: "Successfully Deleted"
+          });
+
+          this.$emit("item-updated");
+        })
+        .catch(err => {
+          this.$q.notify({
+            color: "red-4",
+            position: "top",
+            textColor: "white",
+            icon: "error",
+            message: "Something went wrong, please try again."
+          });
+        });
     }
   },
   filters: {
