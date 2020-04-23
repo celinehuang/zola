@@ -24,13 +24,35 @@ Once the environment is activated, install requirements:
 ```
 pip install -r requirements.txt
 ```
-On windows, download a recent stable executable of Redis, and run redis-server.exe.
-https://github.com/microsoftarchive/redis/releases
 
 To run the Django backend:
 ```
 python manage.py runserver
 ```
+
+## Redis Set Up (for our marketplace chat room)
+You should do this inside of your virtual environment as well!
+
+### Mac OS
+To install Redis:
+```
+brew update
+brew install redis
+```
+To have launchd start redis now and restart at login:
+```
+brew services start redis
+```
+Test if Redis server is running.
+
+```
+redis-cli ping
+```
+If it replies “PONG”, then it’s good to go!
+
+### Windows
+Download a recent stable executable of Redis, and run redis-server.exe.
+https://github.com/microsoftarchive/redis/releases
 
 ## Frontend Set Up
 
@@ -41,3 +63,4 @@ To install dependencies, run `npm install` or `yarn install` in the `frontend` f
 ```
 quasar dev
 ```
+
