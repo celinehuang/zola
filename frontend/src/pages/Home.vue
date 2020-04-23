@@ -3,7 +3,7 @@
     <form @submit.prevent="onSearch" class="q-pa-md">
       <q-input rounded outlined v-model="text" label="Search" class="q-pa-lg q-mx-sm q-mt-sm">
         <template v-slot:append>
-          <q-btn name="cancel" @click="clearSearch" class="cursor-pointer" />
+          <q-btn name="cancel" class="cursor-pointer" />
         </template>
         <template v-slot:append>
           <q-icon name="search" />
@@ -160,7 +160,6 @@ export default {
       });
     },
     onSearch() {
-      console.log("helllloooo");
       var searchText = this.text;
       this.$axios
         .get("/api/itemsearch/", {
