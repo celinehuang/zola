@@ -19,7 +19,7 @@ pip install -r requirements.txt
 CD into the correct directory:
 
 ```
-cd backend/mysite
+cd newbackend/Zola
 ```
 
 To run the Django backend:
