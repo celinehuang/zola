@@ -58,10 +58,8 @@ export default {
 </script>
 <style lang="sass" scoped>
 .my-card
-  width: 240px
-  height: 400px
-  overflow: scroll
-  overflow-x: scroll
+  width: 100%
+  max-width: 350px
 
 .price-caption
   position: absolute
