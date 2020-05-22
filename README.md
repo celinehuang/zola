@@ -1,7 +1,7 @@
-# Group Members:
-Celine Huang 260707291
-Jim Prescott 260738187
-Jacek Dziewonski 260731690
+# Built By
+[Celine Huang](https://github.com/celinehuang)
+[Jim Prescott](https://github.com/jimprescott)
+[Jacek Dziewonski](https://github.com/JDziewonski98)
 
 # Buy& Sell Marketplace for Music
 
