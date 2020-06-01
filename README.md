@@ -4,6 +4,11 @@ Built By
 [Jim Prescott](https://github.com/jimprescott)
 [Jacek Dziewonski](https://github.com/JDziewonski98)
 
+![github-small](https://github.com/celinehuang/zola/blob/screenshots/pics/zola1.PNG)
+![github-small](https://github.com/celinehuang/zola/blob/screenshots/pics/zola2.PNG)
+![github-small](https://github.com/celinehuang/zola/blob/screenshots/pics/zola3.PNG)
+![github-small](https://github.com/celinehuang/zola/blob/screenshots/pics/zola4.PNG)
+![github-small](https://github.com/celinehuang/zola/blob/screenshots/pics/zola5.PNG)
 
 ## Backend Set Up
 
