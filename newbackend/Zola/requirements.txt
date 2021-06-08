@@ -1,4 +1,4 @@
-pillow==6.2.1
+pillow==8.2.0
 Django==3.0.4
 djangorestframework
 django-allauth
